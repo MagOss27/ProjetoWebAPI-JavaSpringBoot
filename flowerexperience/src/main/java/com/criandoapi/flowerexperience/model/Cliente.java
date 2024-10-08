@@ -12,17 +12,17 @@ import jakarta.persistence.Table;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // CAMPO ID, IRÁ SER AUTOINCREMENTADO
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "nome", length = 200, nullable = true)
+    @Column(name = "nome", length = 200, nullable = true) // COLOCANDO OS ATRIBUTOS IGUAL AO BB
     private String nome;
 
-    @Column(name = "email", length = 50, nullable = true)
+    @Column(name = "email", length = 50, nullable = true) // COLOCANDO OS ATRIBUTOS IGUAL AO BB
     private String email;
 
-    @Column(name = "senha", columnDefinition = "TEXT", nullable = true)
+    @Column(name = "senha", columnDefinition = "TEXT", nullable = true) // COLOCANDO OS ATRIBUTOS IGUAL AO BB
     private String senha;
 
     public Integer getId() {
