@@ -58,3 +58,19 @@ formulario.addEventListener('submit', function (event) {
     // Chama a função limpar para limpar os campos do formulário após o envio
     limpar();
 });
+
+
+////Dados para a Criação do Banco de Dados\\\\
+
+// Use flowerexperience;
+
+// CREATE TABLE cliente (
+//     id INTEGER AUTO_INCREMENT PRIMARY KEY, 
+//     nome_completo VARCHAR(200) NOT NULL,  
+//     email VARCHAR(50) NOT NULL UNIQUE,     
+//     senha TEXT NOT NULL                   
+// );
+
+// INSERT INTO cliente VALUES (NULL, "Magnus", "Magnus@gmail.com", "123");
+
+// SELECT * FROM cliente;
