@@ -18,7 +18,13 @@ function login() {
             })
         })
         .then(function (res) {
-            if (res.status === 200) {
+            return res.text(); // Converte a resposta para texto
+        })
+        .then(function (data) {
+            if (data === "admin") {
+                // Redireciona para a página do administrador
+                window.location.href = "TelaAdmin.html";
+            } else if (data) {
                 // Redireciona para a página da área do cliente se o login for bem-sucedido
                 window.location.href = "TelaCliente.html";
             } else {

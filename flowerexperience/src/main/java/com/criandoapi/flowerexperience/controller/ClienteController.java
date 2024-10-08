@@ -55,6 +55,15 @@ public class ClienteController {
     @PostMapping("/login")
     public ResponseEntity<?> loginCliente(@RequestBody Cliente cliente) {
 
+        // E-mail e senha do administrador
+        String adminEmail = "magnus";
+        String adminSenha = "123";
+
+        // Verifica se o login é do administrador
+        if (cliente.getEmail().equals(adminEmail) && cliente.getSenha().equals(adminSenha)) {
+            return ResponseEntity.ok("admin");
+        }
+
         // Verifica se o cliente existe no banco de dados
         Optional<Cliente> clienteExistente = dao.findByEmailAndSenha(cliente.getEmail(), cliente.getSenha());
 
