@@ -1,0 +1,77 @@
+/* styles.css */
+
+/* Estilizando o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilo do título */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilizando os cards */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    transition: transform 0.2s;
+}
+
+/* Efeito de hover nos cards */
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo do título dentro do card */
+.card h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #007BFF;
+}
+
+/* Estilo para os inputs de texto */
+.card input[type="text"],
+.card input[type="email"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+/* Estilo para o botão de deletar */
+.card button {
+    background-color: #dc3545; /* Cor do botão */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Efeito de hover no botão */
+.card button:hover {
+    background-color: #c82333;
+}
+
+/* Ajusta o layout para que os cards sejam exibidos em linha */
+#usuarios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza os cards no contêiner */
+}
