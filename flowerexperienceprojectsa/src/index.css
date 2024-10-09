@@ -1,0 +1,43 @@
+:root{
+    --cor-1: #678371;
+    --cor-2: #ebe8d9;
+    --cor-3: #f4f2ea;
+    --cor-4: #ffffff;
+    --cor-5: #000000;
+    --cor-6: #800000;
+    --cor-6: #a0a0a0;
+    --cor-7: #54705e;
+    --cor-8: #c2beae;
+  }
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+html,body{
+width: 100%;
+height: 100%;
+}
+
+.container-main{
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--cor-2);
+    transition: 0.5s;
+}
+
+.container-main.dark{
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--cor-1);
+    transition: 0.5s;
+}
+
+
+ .container.dark{
+    background: var(--cor-1);
+} 

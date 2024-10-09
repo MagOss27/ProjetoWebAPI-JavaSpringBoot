@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Archivo+Black&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.navbar{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cor-2);
+    padding: 15px;
+    transition: 0.5s;
+}
+
+.logo{
+    width: 140px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+ul{
+    flex: 1;
+    list-style: none;
+    text-align: center;
+}
+
+ul li{
+     display: inline-block;
+    margin: 10px 20px;
+    font-size: 15px;
+    cursor: pointer; 
+}
+
+ul li a:hover{
+     font-size: 22px;
+    color: black; 
+
+}
+
+
+.toggle-icon{
+    width: 26px;
+    cursor: pointer;
+    margin-left: 60px;
+    transition: 0.5s;
+}
+
+
+.user-icon{
+    width: 28px;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: 0.5s;
+}
+
+
+.search-box{
+    display: flex;
+    align-items: center;
+    background: var(--cor-1);
+    padding: 10px 20px;
+    border-radius: 50px;
+    height: 40px;
+    width: 240px;
+    transition: 0.5s;
+}
+
+.search-box input{
+    padding: 6px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--cor-2);
+    font-family: 18px;
+    max-width: 200px;
+    transition: 0.5s;
+}
+
+.search-box input::placeholder{
+    color: var(--cor-2);
+}
+
+.search-box img{
+    width: 20px;
+    cursor: pointer;
+}
+
+
+.text_navbar{
+    color: var(--cor-1);
+    font-size: 15px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none;
+    padding: 15px;
+}
+
+.text_navbar:hover {
+    font-size: 20px;
+    color: var(--cor-1);
+
+}
+
+
+.dark .text_navbar{
+    color: var(--cor-2);
+    font-size: 15px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    text-decoration:none;
+}
+
+.dark .text_navbar:hover {
+    font-size: 20px;
+    color: var(--cor-4);
+
+}
+
+.dark ul li a:hover{
+    font-size: 20px;
+    color: var(--cor-4);
+
+
+}
+
+.dark .navbar{
+    background: var(--cor-1);
+    color: var(--cor-2);
+
+}
+
+.dark .search-box{
+    background: var(--cor-2);
+
+}
+
+.dark .search-box input{
+    color: #222;
+}
+
+.dark .search-box input::placeholder{
+    color: var(--cor-1)
+}
+
+.foto-plantas{
+    width: 275px;
+    height: 310px;
+}

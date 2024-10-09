@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Archivo+Black&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.adm {
+    background-color: var(--cor-2);
+    height: 87.9vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    background-image: url('../assets/background-dark.png');
+    background-size: 1250px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.dark .adm {
+    background-color: var(--cor-1);
+    background-image: url('../assets/background-light.png');
+    background-size: 1250px;
+    height: 87.9vh;
+}
+
+.principal {
+    background-color: var(--cor-1);
+    height: 80%;
+    width: 80%;
+    display: flex;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+    border-radius: 25px;
+    flex-direction: column;
+    transition: 0.5s;
+}
+
+.dark .principal {
+    background-color: var(--cor-2);
+}
+
+.div-infos-adm {
+    width: 100%;
+    height: 30%;
+    background-color: var(--cor-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 25px;
+    transition: 0.5s;
+}
+
+.dark .div-infos-adm {
+    background-color: var(--cor-2);
+}
+
+.foto-adm {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../assets/user_light.png');
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: center;
+}
+
+.dark .foto-adm {
+    background-image: url('../assets/user_dark.png');
+}
+
+.nome-adm p {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--cor-2);
+}
+
+.dark .nome-adm p {
+    color: var(--cor-1);
+}
+
+.principal-dois {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-mid {
+    position: relative; /* Permite sobreposição */
+    display: flex;
+    width: 95%;
+    height: 75%;
+    border-radius: 25px;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+    transition: transform 0.5s ease; /* Transição suave */
+    
+}
+.left-container {
+    position: relative; /* Permite a sobreposição */
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    background-color: var(--cor-4)
+
+}
+
+
+
+.right-container {
+    position: relative; /* Permite a sobreposição */
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: var(--cor-4);
+    z-index: 1; /* Coloca a right-container abaixo da left-container */
+}
+
+
+
+.input-adm-css {
+    width: 85%;
+    height: 20px;
+    box-sizing: border-box;
+    border: 1px solid var(--cor-6);
+    font-size: 13px;
+    margin-left: 7%;
+}
+
+.right-container p {
+    margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--cor-1);
+    display: flex;
+    align-items: center;
+    margin-left: 7%;
+    margin-top: 20px;
+}
+
+
+
+.left-container p {
+    margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--cor-1);
+    display: flex;
+    align-items: center;
+    margin-left: 7%;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+.prod-foto-css {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 25px;   /* Apenas o canto superior direito */
+    border-bottom-left-radius: 25px; /* Apenas o canto inferior direito */
+
+    position: absolute; /* Para sobrepor */
+    top: 0; /* Alinha ao topo da left-container */
+    left: 0; /* Alinha à esquerda da left-container */
+    z-index: 2; /* A imagem acima do restante */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Transições para a animação */
+}
+
+
+/* Botões */
+.container-button {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    align-items: center;
+}
+
+.button-div-um, .button-div-dois {
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.button-prod-css, .button-excluirprod-css {
+    border: none;
+    width: 150px;
+    height: 40px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+    transition: 0.5s; /* Transição suave */
+}
+
+.button-excluirprod-css {
+    color: rgb(168, 4, 4);
+}
+
+.button-prod-css {
+    color: var(--cor-1);
+}
+
+
+
+
+
+.registering .prod-foto-css{
+    transition: 0.5s;
+    transform: translateX(100%); /* Move a left-container para a esquerda */
+    border-top-right-radius: 25px;   /* Apenas o canto superior direito */
+    border-bottom-right-radius: 25px; /* Apenas o canto inferior direito */
+    border-top-left-radius: 0px;   /* Apenas o canto superior direito */
+    border-bottom-left-radius: 0px; /* Apenas o canto inferior direito */
+}
+
+.search-box-prod{
+    display: flex;
+    align-items: center;
+    background: var(--cor-1);
+    padding: 10px 20px;
+    border-radius: 50px;
+    height: 30px;
+    width: 240px;
+    transition: 0.5s;
+    margin: 5px;
+    margin-left: 30%;
+}
+
+
+
+.search-box-prod input{
+    padding: 6px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--cor-2);
+    font-family: 18px;
+    max-width: 200px;
+    transition: 0.5s;
+}
+
+.dark .search-box-prod input{
+    padding: 6px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--cor-1);
+    font-family: 18px;
+    max-width: 200px;
+    transition: 0.5s;
+}
+
+.search-box-prod input::placeholder{
+    color: var(--cor-2);
+}
+
+.search-box-prod img{
+    width: 20px;
+    cursor: pointer;
+}
+
+.button-prod-css-adm{
+    border: none;
+    width: 150px;
+    height: 30px;
+    margin-top: 15px;
+    color: var(--cor-2);
+    margin-left: 42%;
+    background-color: var(--cor-1);
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+}
+
+.button-prod-css-adm-um{
+    border: none;
+    width: 150px;
+    height: 30px;
+    margin-top: 15px;
+    color: var(--cor-2);
+    margin-left: 37%;
+    background-color: var(--cor-1);
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+}
+
+.btn{
+    height: 19%;
+    width: 100%;
+    background-color: var(--cor-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px; 
+}
+
+.btn-css{
+    border: none;
+    width: 150px;
+    height: 30px;
+    color: var(--cor-4);
+    margin: 20px;
+    background-color: var(--cor-1);
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+}
+
+
+
+.btn-css-excluir{
+    border: none;
+    width: 150px;
+    height: 30px;
+    color: var(--cor-4);
+    margin: 20px;
+    background-color: rgb(163, 0, 0);
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+}
+
+

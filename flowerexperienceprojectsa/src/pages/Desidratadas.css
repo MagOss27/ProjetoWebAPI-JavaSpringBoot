@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Archivo+Black&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.desidratadas {
+    background-color: var(--cor-2);
+    height: 87.9vh;
+    display: flex;
+    justify-content: center;
+    transition: 0.5s;
+    background-image: url('../assets/background-dark.png');
+    background-size: 1250px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+
+}
+.dark .desidratadas {
+    background-color: var(--cor-1);
+    height: 87.9vh;
+    display: flex;
+    justify-content: center;
+    background-image: url('../assets/background-light.png');
+    background-size: 1250px;
+}
+
+.container {
+    background-color: transparent;
+    height: 80%;
+    width: 80%;
+}
+
+.title {
+    background-color: transparent;
+    height: 10vh;
+    text-align: center;
+    margin-bottom: 70px;
+    
+}
+
+.cards {
+    background-color: white;
+    height: 52vh;
+    display: flex;
+    justify-content: center;
+
+}
+
+.card {
+
+    height: 50vh;
+    width: 30vh;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card-image {
+    background-color: transparent;
+    height: 40vh;
+    width: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-title {
+    height: 7vh;
+    width: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-css{
+    color: var(--cor-1);
+    text-shadow: 2px 2px 4px var(--cor-2);
+    font-size: 25px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none;
+    padding: 15px;
+    margin-bottom: 0;
+}
+
+.dark .text-css{
+    color: var(--cor-2);
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    font-size: 25px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none;
+    padding: 15px;
+}
+
+.text-p-css{
+    color: var(--cor-1);
+    font-size: 18px;
+    text-shadow: 2px 2px 4px var(--cor-2);
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none;  
+}
+
+.dark .text-p-css{
+    color: var(--cor-2);
+    font-size: 18px;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none;  
+}
+
+.nome-planta{
+    color: var(--cor-1);
+    font-size: 15px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none; 
+
+}
+
+.button-css{
+    background-color: var(--cor-1);
+    color: var(--cor-2);
+    border: none;
+    width: 220px;
+    height: 30px;   
+    font-size: 18px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none; 
+    border-radius: 50px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.button-css:hover{
+    background-color: var(--cor-1);
+    color: var(--cor-2);
+    border: none;
+    width: 225px;
+    height: 35px;
+    cursor: pointer;   
+    font-size: 19px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+    text-decoration:none; 
+    border-radius: 50px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.div-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    background-color: white;  
+    -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);  
+}
