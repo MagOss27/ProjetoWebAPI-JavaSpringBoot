@@ -27,7 +27,13 @@ const Cadastro = ({ theme, setTheme }) => {
             });
 
             if (response.status === 201) {
+
+
+
                 alert('Cadastro realizado com sucesso!');
+
+                localStorage.setItem('userID', response.data.id)
+
                 // Você pode redirecionar o usuário para a página de login, se desejar
                 window.location.href = '/login';
             }
