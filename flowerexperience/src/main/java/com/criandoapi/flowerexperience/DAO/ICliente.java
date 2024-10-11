@@ -9,4 +9,7 @@ public interface ICliente extends CrudRepository<Cliente, Integer> {
     // validação da tela de login
     Optional<Cliente> findByEmailAndSenha(String email, String senha);
 
+    //buscar por id
+    Optional<Cliente> findById(Integer id);
+
 }

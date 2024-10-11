@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.criandoapi.flowerexperience.DAO.ICliente;
 import com.criandoapi.flowerexperience.model.Cliente;
+import com.criandoapi.flowerexperience.service.ClienteService;
 
 @RestController
 @CrossOrigin("*")
@@ -26,6 +27,9 @@ public class ClienteController {
 
     @Autowired
     private ICliente dao;
+
+    @Autowired
+    private ClienteService service;
 
     @GetMapping
     public ResponseEntity<List<Cliente>> listaClientes() {
@@ -39,10 +43,10 @@ public class ClienteController {
         return ResponseEntity.status(201).body(clienteNovo);
     }
 
-    @PutMapping
-    public ResponseEntity<Cliente> editarCliente(@RequestBody Cliente cliente) {
-        Cliente clienteNovo = dao.save(cliente);
-        return ResponseEntity.status(201).body(clienteNovo);
+    @PutMapping("/{id}") // Inclui o ID na URL
+    public ResponseEntity<Cliente> editarCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
+        Cliente clienteNovo = service.editarCliente(id, cliente);
+        return ResponseEntity.status(200).body(clienteNovo); // Retorna o cliente atualizado
     }
 
     @DeleteMapping("/{id}")
@@ -72,5 +76,10 @@ public class ClienteController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> buscarID(@PathVariable Integer id) throws IllegalArgumentException {
+        return ResponseEntity.ok(service.buscarID(id).get());
     }
 }
