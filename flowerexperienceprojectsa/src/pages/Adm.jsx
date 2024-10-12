@@ -5,14 +5,14 @@ import search_icon_light from '../assets/search_w.png'
 import search_icon_dark from '../assets/search_b.png'
 
 const Adm = ({ theme, setTheme }) => {
-    const [isRegistering, setIsRegistering] = useState(false); // Estado para controlar o registro
+    const [isRegistering, setIsRegistering] = useState(false);
 
     const handleRegisterClick = () => {
-        setIsRegistering(false); // Ativa a animação ao clicar no botão Cadastrar
+        setIsRegistering(false); 
     };
 
     const handleEditClick = () => {
-        setIsRegistering(true); // Desativa a animação ao clicar no botão Editar
+        setIsRegistering(true); 
     };
 
     return (

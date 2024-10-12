@@ -1,104 +1,76 @@
-// import React from 'react'
-// import './TelaArranjos.css'
-// import { Link } from 'react-router-dom';
-// import arr_um from '../assets/arr-um.png'
-// import arr_dois from '../assets/arr-dois.png'
-// import arr_tres from '../assets/arr-tres.png'
-// import arr_qua from '../assets/arr-qua.png'
-// import arr_cin from '../assets/arr-cin.png'
-// import blight from '../assets/background-light.png'
-// import bdark from '../assets/background-dark.png'
-
-// const TelaArranjos = () => {
-//     return (
-//         <div className='tela-arranjos'>
-//             <div className='ta-principal'>
-//                 <div className='ta-esquerda'>
-//                     <div className='ta-previas'>
-//                         <img src={arr_um} className='img-previas' />
-//                         <img src={arr_dois} className='img-previas' />
-//                         <img src={arr_tres} className='img-previas' />
-//                         <img src={arr_qua} className='img-previas' />
-//                         <img src={arr_cin} className='img-previas' />
-//                     </div>
-//                     <img src={arr_um} className='img-um-previas' />
-//                 </div>
-
-//                 <div className='ta-direita'>
-//                     <div className='ta-titulo'>
-//                         <p className='ta-titulo-p'>ARRANJOS</p>
-//                     </div>
-
-//                     <div className='ta-estrelas'>
-//                         <p className='ta-estrelas-p'>⭐⭐⭐⭐⭐</p>
-//                     </div>
-
-//                     <div className='ta-infos'>
-//                         <div className='ta-infos-box'>
-//                             <p className='ta-infos-p'>Experimente transformar o seu lar com estilosas e impactantes plantas, contendo vasos resistentes e elegantes de polietileno, pedras, seixos e cascas.<br></br> <br></br>(Duração de plano: 30 Dias).<br></br><br></br>
-
-//                                 Tamanho das Plantas: 1m de altura por 70 cm de largura.<br></br>
-//                                 Vasos: Polietileno nas cores, mamore, cimento e areia.<br></br>
-//                                 Tempo de Permanência:  7 dias
-//                             </p>
-//                         </div>
-//                     </div>
-
-//                     <div className='ta-entrega'>
-//                         <p className='ta-entrega-p-titulo'>
-//                         ENTREGAS PARA O MESMO DIA
-//                         </p>
-//                         <p className='ta-entrega-p-text'>
-//                         Para que a entrega seja feita no mesmo dia, o pedido deve ser realizado até às 15h00
-//                         </p>
-//                     </div>
-
-//                     <div className='ta-button-addpedido'>
-//                         <input type='number' className='inpt-number'></input>
-//                         <button className='btn-addpedido'>ADICIONAR AO PEDIDO</button>
-//                     </div>
-
-//                 </div>
-//             </div>
-
-//             <div className='btn-saiba-mais'>
-//                 <button className='btn-saiba-mais-css'>COMO FUNCIONA</button>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default TelaArranjos;
-
 import React, { useState } from 'react';
 import './TelaDesidratadas.css';
+import Modal from '../components/Modal/Modal'; 
 import des_um from '../assets/des-um.png';
 import des_dois from '../assets/des-dois.png';
 import des_tres from '../assets/des-tres.png';
 import des_qua from '../assets/des-qua.png';
 import des_cin from '../assets/des-cin.png';
 
-const TelaDesidratadas = ({theme, setTheme}) => {
-    // Estado para controlar a visibilidade do card
+const TelaDesidratadas = ({ theme, setTheme, addPedido, isLoggedIn }) => {
     const [showCard, setShowCard] = useState(false);
+    const [quantidade, setQuantidade] = useState(1); 
+    const [modalOpen, setModalOpen] = useState(false); 
+    const [modalTitle, setModalTitle] = useState(''); 
+    const [modalMessage, setModalMessage] = useState(''); 
 
-    // Função que alterna a visibilidade do card
     const handleToggleCard = () => {
         setShowCard(!showCard);
     };
+
+    const handleAddToPedido = () => {
+        if (!isLoggedIn) {
+            setModalTitle('Ops');
+            setModalMessage('Você não está logado. Faça login para adicionar pedidos!');
+            setModalOpen(true);
+            return; 
+        }
+    
+        if (quantidade > 0) {
+          
+            const emailLogado = localStorage.getItem('emailLogado');
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || []; 
+            const usuario = usuarios.find(user => user.email === emailLogado); 
+    
+            if (usuario) {
+                
+                usuario.pedidos.push({ nome: 'Desidratada', quantidade });
+    
+                
+                const userIndex = usuarios.findIndex(user => user.email === emailLogado);
+                usuarios[userIndex] = usuario; 
+                localStorage.setItem('usuarios', JSON.stringify(usuarios)); 
+    
+                setModalTitle('Sucesso');
+                setModalMessage(`Adicionado ${quantidade} desidratada(s) ao pedido!`); 
+                setModalOpen(true);
+                setQuantidade(1); 
+            } else {
+                setModalTitle('Erro');
+                setModalMessage('Usuário não encontrado no sistema.');
+                setModalOpen(true);
+            }
+        } else {
+            setModalTitle('Erro');
+            setModalMessage('Quantidade inválida. Por favor, insira um número maior que 0.'); 
+            setModalOpen(true);
+        }
+    };
+    
+    
 
     return (
         <div className='tela-desidratadas'>
             <div className='ta-principal-desidratadas'>
                 <div className='ta-esquerda-desidratadas'>
                     <div className='ta-previas-desidratadas'>
-                        <img src={des_um} className='img-previas-desidratadas' alt="Arranjo 1" />
-                        <img src={des_dois} className='img-previas-desidratadas' alt="Arranjo 2" />
-                        <img src={des_tres} className='img-previas-desidratadas' alt="Arranjo 3" />
-                        <img src={des_qua} className='img-previas-desidratadas' alt="Arranjo 4" />
-                        <img src={des_cin} className='img-previas-desidratadas' alt="Arranjo 5" />
+                        <img src={des_um} className='img-previas-desidratadas' alt="Desidratada 1" />
+                        <img src={des_dois} className='img-previas-desidratadas' alt="Desidratada 2" />
+                        <img src={des_tres} className='img-previas-desidratadas' alt="Desidratada 3" />
+                        <img src={des_qua} className='img-previas-desidratadas' alt="Desidratada 4" />
+                        <img src={des_cin} className='img-previas-desidratadas' alt="Desidratada 5" />
                     </div>
-                    <img src={des_um} className='img-um-previas-desidratadas' alt="Arranjo grande" />
+                    <img src={des_um} className='img-um-previas-desidratadas' alt="Desidratada grande" />
                 </div>
 
                 <div className='ta-direita-desidratadas'>
@@ -113,9 +85,9 @@ const TelaDesidratadas = ({theme, setTheme}) => {
                     <div className='ta-infos-desidratadas'>
                         <div className='ta-infos-box-desidratadas'>
                             <p className='ta-infos-p-desidratadas'>
-                                Experimente transformar o seu lar com estilosas e impactantes Desidratadas.<br/><br/>
-                                Tamanho: 80cm de altura por 70 cm de largura.<br/>
-                                Vasos: Papelão colorido, Vasos de polietileno ou vidro.<br/>
+                                Experimente transformar o seu lar com estilosas e impactantes Desidratadas.<br /><br />
+                                Tamanho: 80cm de altura por 70 cm de largura.<br />
+                                Vasos: Papelão colorido, Vasos de polietileno ou vidro.<br />
                                 Renovação: À cada 7 ou 15 dias.
                             </p>
                         </div>
@@ -129,27 +101,43 @@ const TelaDesidratadas = ({theme, setTheme}) => {
                     </div>
 
                     <div className='ta-button-addpedido-desidratadas'>
-                        <input type='number' className='inpt-number-desidratadas' placeholder="1" />
-                        <button className='btn-addpedido-desidratadas'>ADICIONAR AO PEDIDO</button>
+                        <input 
+                            type='number' 
+                            className='inpt-number-desidratadas' 
+                            value={quantidade} 
+                            onChange={(e) => setQuantidade(Number(e.target.value))} 
+                            min="1" 
+                        />
+                        <button 
+                            className='btn-addpedido-desidratadas' 
+                            onClick={handleAddToPedido}
+                        >
+                            ADICIONAR AO PEDIDO
+                        </button>
                     </div>
-
                 </div>
             </div>
 
             <div className='btn-saiba-mais-desidratadas'>
-                <button className='btn-saiba-mais-css-desidratadas' onClick={handleToggleCard}>COMO FUNCIONA</button>
+                <button className='btn-saiba-mais-css-desidratadas' onClick={handleToggleCard}>
+                    COMO FUNCIONA
+                </button>
             </div>
 
-            {/* O card que aparece e desaparece ao clicar no botão */}
             {showCard && (
                 <div className='como-funciona-card-desidratadas'>
-                
                     <button className='btn-fechar-desidratadas' onClick={handleToggleCard}>FECHAR</button>
                 </div>
             )}
+
+            <Modal 
+                isOpen={modalOpen} 
+                onClose={() => setModalOpen(false)} 
+                title={modalTitle} 
+                message={modalMessage} 
+            />
         </div>
     );
 }
 
 export default TelaDesidratadas;
-

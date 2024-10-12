@@ -5,11 +5,10 @@ import './Login.css';
 import light_logo_red from '../assets/logo-redonda-light.png';
 import dark_logo_red from '../assets/logo-redonda-dark.png';
 
-
-const Login = ({ theme, setTheme }) => {
+const Login = ({ theme }) => {
     const [email, setEmail] = useState(''); // Estado para armazenar o email
     const [senha, setSenha] = useState(''); // Estado para armazenar a senha
-    const [error, setError] = useState(''); // Estado para armazenar erros
+    const [erro, setErro] = useState(''); // Estado para armazenar erros
     const navigate = useNavigate(); // Hook para redirecionamento
 
     const handleLogin = async (e) => {
@@ -23,21 +22,23 @@ const Login = ({ theme, setTheme }) => {
 
             // Verifica a resposta do backend
             if (response.data === "admin") {
+                alert('Login como administrador realizado com sucesso!');
                 navigate('/Adm'); // Redireciona para a página do admin
-            } else {
-                navigate('/Usuario');
+            } else if (response.status === 200) {
+                alert('Login realizado com sucesso!');
+                navigate('/Usuario'); // Redireciona para a página do usuário
             }
         } catch (err) {
-            setError('Email ou senha incorretos!'); // Exibe mensagem de erro em caso de falha
+            console.error('Erro ao realizar login:', err);
+            setErro('Email ou senha incorretos!'); // Exibe mensagem de erro em caso de falha
         }
     };
 
     return (
         <div className='login'>
             <div className='container-login'>
-
                 <div className='login-logo'>
-                    <img src={theme == 'dark' ? light_logo_red : dark_logo_red} alt='' className='logo-red-css' />
+                    <img src={theme === 'dark' ? light_logo_red : dark_logo_red} alt='' className='logo-red-css' />
                 </div>
 
                 <div className='login-text'>
@@ -63,14 +64,13 @@ const Login = ({ theme, setTheme }) => {
                     </div>
                 </div>
 
-                {error && <p className="error-message">{error}</p>} {/* Exibe a mensagem de erro */}
+                {erro && <p className="error-message">{erro}</p>} {/* Exibe a mensagem de erro */}
 
                 <div className='login-button'>
                     <button className='btn-login' onClick={handleLogin}>ENTRAR</button> {/* Evento de clique */}
                     <p>Não possui uma conta?</p>
                     <Link to='/cadastro' className='cad-btn'>Cadastre-se</Link>
                 </div>
-
             </div>
         </div>
     );

@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Cadastro.css';
 import axios from 'axios';
 import light_logo_red from '../assets/logo-redonda-light.png';
 import dark_logo_red from '../assets/logo-redonda-dark.png';
 
-const Cadastro = ({ theme, setTheme }) => {
-    // Estados para armazenar os dados do formulário
+const Cadastro = ({ theme }) => {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [erro, setErro] = useState('');
+    const navigate = useNavigate();
 
-    const handleCadastro = async () => {
+    const handleCadastro = async (e) => {
+        e.preventDefault();
+
+        if (senha.length < 8) {
+            setErro('A senha deve ter pelo menos 8 caracteres.');
+            return;
+        }
+
         if (senha !== confirmarSenha) {
-            setErrorMessage('As senhas não coincidem');
+            setErro('As senhas não coincidem.');
             return;
         }
 
@@ -27,19 +34,20 @@ const Cadastro = ({ theme, setTheme }) => {
             });
 
             if (response.status === 201) {
-
-
-
                 alert('Cadastro realizado com sucesso!');
+                localStorage.setItem('userID', response.data.id);
 
-                localStorage.setItem('userID', response.data.id)
+                setNome('');
+                setEmail('');
+                setSenha('');
+                setConfirmarSenha('');
+                setErro('');
 
-                // Você pode redirecionar o usuário para a página de login, se desejar
-                window.location.href = '/login';
+                navigate('/login');
             }
         } catch (error) {
             console.error('Erro ao realizar cadastro:', error);
-            setErrorMessage('Erro ao realizar cadastro. Tente novamente.');
+            setErro('Erro ao realizar cadastro. Tente novamente.');
         }
     };
 
@@ -55,13 +63,14 @@ const Cadastro = ({ theme, setTheme }) => {
                 </div>
 
                 <div className='cadastro-container-inputs'>
-                    <div className='cadastro-inputs'>
+                    <form onSubmit={handleCadastro} className='cadastro-inputs'>
                         <p>NOME</p>
                         <input
                             type='text'
                             className='input-cadastro'
                             value={nome}
                             onChange={(e) => setNome(e.target.value)}
+                            required
                         />
                         <p>E-MAIL</p>
                         <input
@@ -69,6 +78,7 @@ const Cadastro = ({ theme, setTheme }) => {
                             className='input-cadastro'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                         <p>SENHA</p>
                         <input
@@ -76,6 +86,7 @@ const Cadastro = ({ theme, setTheme }) => {
                             className='input-cadastro'
                             value={senha}
                             onChange={(e) => setSenha(e.target.value)}
+                            required
                         />
                         <p>CONFIRMAR SENHA</p>
                         <input
@@ -83,15 +94,16 @@ const Cadastro = ({ theme, setTheme }) => {
                             className='input-cadastro'
                             value={confirmarSenha}
                             onChange={(e) => setConfirmarSenha(e.target.value)}
+                            required
                         />
-                    </div>
+                        {erro && <p className='erro'>{erro}</p>}
+                    </form>
                 </div>
 
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
-
                 <div className='cadastro-button'>
-                    <button className='btn-cadastro' onClick={handleCadastro}>CADASTRAR</button>
-                    <p>Já possui uma conta?</p><Link to='/login' className='cad-btn'>Login</Link>
+                    <button type='submit' className='btn-cadastro' onClick={handleCadastro}>CADASTRAR</button>
+                    <p>Já possui uma conta?</p>
+                    <Link to='/login' className='cad-btn'>Login</Link>
                 </div>
             </div>
         </div>

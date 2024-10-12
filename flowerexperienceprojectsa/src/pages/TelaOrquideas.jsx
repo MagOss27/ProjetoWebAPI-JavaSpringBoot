@@ -1,75 +1,3 @@
-// import React from 'react'
-// import './TelaArranjos.css'
-// import { Link } from 'react-router-dom';
-// import arr_um from '../assets/arr-um.png'
-// import arr_dois from '../assets/arr-dois.png'
-// import arr_tres from '../assets/arr-tres.png'
-// import arr_qua from '../assets/arr-qua.png'
-// import arr_cin from '../assets/arr-cin.png'
-// import blight from '../assets/background-light.png'
-// import bdark from '../assets/background-dark.png'
-
-// const TelaArranjos = () => {
-//     return (
-//         <div className='tela-arranjos'>
-//             <div className='ta-principal'>
-//                 <div className='ta-esquerda'>
-//                     <div className='ta-previas'>
-//                         <img src={arr_um} className='img-previas' />
-//                         <img src={arr_dois} className='img-previas' />
-//                         <img src={arr_tres} className='img-previas' />
-//                         <img src={arr_qua} className='img-previas' />
-//                         <img src={arr_cin} className='img-previas' />
-//                     </div>
-//                     <img src={arr_um} className='img-um-previas' />
-//                 </div>
-
-//                 <div className='ta-direita'>
-//                     <div className='ta-titulo'>
-//                         <p className='ta-titulo-p'>ARRANJOS</p>
-//                     </div>
-
-//                     <div className='ta-estrelas'>
-//                         <p className='ta-estrelas-p'>⭐⭐⭐⭐⭐</p>
-//                     </div>
-
-//                     <div className='ta-infos'>
-//                         <div className='ta-infos-box'>
-//                             <p className='ta-infos-p'>Experimente transformar o seu lar com estilosas e impactantes plantas, contendo vasos resistentes e elegantes de polietileno, pedras, seixos e cascas.<br></br> <br></br>(Duração de plano: 30 Dias).<br></br><br></br>
-
-//                                 Tamanho das Plantas: 1m de altura por 70 cm de largura.<br></br>
-//                                 Vasos: Polietileno nas cores, mamore, cimento e areia.<br></br>
-//                                 Tempo de Permanência:  7 dias
-//                             </p>
-//                         </div>
-//                     </div>
-
-//                     <div className='ta-entrega'>
-//                         <p className='ta-entrega-p-titulo'>
-//                         ENTREGAS PARA O MESMO DIA
-//                         </p>
-//                         <p className='ta-entrega-p-text'>
-//                         Para que a entrega seja feita no mesmo dia, o pedido deve ser realizado até às 15h00
-//                         </p>
-//                     </div>
-
-//                     <div className='ta-button-addpedido'>
-//                         <input type='number' className='inpt-number'></input>
-//                         <button className='btn-addpedido'>ADICIONAR AO PEDIDO</button>
-//                     </div>
-
-//                 </div>
-//             </div>
-
-//             <div className='btn-saiba-mais'>
-//                 <button className='btn-saiba-mais-css'>COMO FUNCIONA</button>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default TelaArranjos;
-
 import React, { useState } from 'react';
 import './TelaOrquideas.css';
 import orq_um from '../assets/orq-um.png';
@@ -77,33 +5,77 @@ import orq_dois from '../assets/orq-dois.png';
 import orq_tres from '../assets/orq-tres.png';
 import orq_qua from '../assets/orq-qua.png';
 import orq_cin from '../assets/orq-cin.png';
+import Modal from '../components/Modal/Modal'; 
 
-const TelaOrquideas = ({theme, setTheme}) => {
-    // Estado para controlar a visibilidade do card
+const TelaOrquideas = ({ theme, setTheme, addPedido, isLoggedIn }) => {
     const [showCard, setShowCard] = useState(false);
+    const [quantidade, setQuantidade] = useState(1); 
+    const [modalOpen, setModalOpen] = useState(false); 
+    const [modalTitle, setModalTitle] = useState(''); 
+    const [modalMessage, setModalMessage] = useState(''); 
 
-    // Função que alterna a visibilidade do card
     const handleToggleCard = () => {
         setShowCard(!showCard);
     };
+
+    const handleAddToPedido = () => {
+        if (!isLoggedIn) {
+            setModalTitle('Ops');
+            setModalMessage('Você não está logado. Faça login para adicionar pedidos!');
+            setModalOpen(true);
+            return; 
+        }
+    
+        if (quantidade > 0) {
+            // Recupera o e-mail do usuário logado
+            const emailLogado = localStorage.getItem('emailLogado');
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || []; 
+            const usuario = usuarios.find(user => user.email === emailLogado); 
+    
+            if (usuario) {
+               
+                usuario.pedidos.push({ nome: 'Orquídea', quantidade });
+    
+                
+                const userIndex = usuarios.findIndex(user => user.email === emailLogado);
+                usuarios[userIndex] = usuario; 
+                localStorage.setItem('usuarios', JSON.stringify(usuarios)); 
+    
+                setModalTitle('Sucesso');
+                setModalMessage(`Adicionado ${quantidade} orquídea(s) ao pedido!`); 
+                setModalOpen(true);
+                setQuantidade(1); 
+            } else {
+                setModalTitle('Erro');
+                setModalMessage('Usuário não encontrado no sistema.');
+                setModalOpen(true);
+            }
+        } else {
+            setModalTitle('Erro');
+            setModalMessage('Quantidade inválida. Por favor, insira um número maior que 0.'); 
+            setModalOpen(true);
+        }
+    };
+    
+    
 
     return (
         <div className='tela-orquideas'>
             <div className='ta-principal-orquideas'>
                 <div className='ta-esquerda-orquideas'>
                     <div className='ta-previas-orquideas'>
-                        <img src={orq_um} className='img-previas-orquideas' alt="Arranjo 1" />
-                        <img src={orq_dois} className='img-previas-orquideas' alt="Arranjo 2" />
-                        <img src={orq_tres} className='img-previas-orquideas' alt="Arranjo 3" />
-                        <img src={orq_qua} className='img-previas-orquideas' alt="Arranjo 4" />
-                        <img src={orq_cin} className='img-previas-orquideas' alt="Arranjo 5" />
+                        <img src={orq_um} className='img-previas-orquideas' alt="Orquídea 1" />
+                        <img src={orq_dois} className='img-previas-orquideas' alt="Orquídea 2" />
+                        <img src={orq_tres} className='img-previas-orquideas' alt="Orquídea 3" />
+                        <img src={orq_qua} className='img-previas-orquideas' alt="Orquídea 4" />
+                        <img src={orq_cin} className='img-previas-orquideas' alt="Orquídea 5" />
                     </div>
-                    <img src={orq_um} className='img-um-previas-orquideas' alt="Arranjo grande" />
+                    <img src={orq_um} className='img-um-previas-orquideas' alt="Orquídea grande" />
                 </div>
 
                 <div className='ta-direita-orquideas'>
                     <div className='ta-titulo-orquideas'>
-                        <p className='ta-titulo-p-orquideas'>ORQUIDEAS</p>
+                        <p className='ta-titulo-p-orquideas'>ORQUÍDEAS</p>
                     </div>
 
                     <div className='ta-estrelas-orquideas'>
@@ -129,10 +101,20 @@ const TelaOrquideas = ({theme, setTheme}) => {
                     </div>
 
                     <div className='ta-button-addpedido-orquideas'>
-                        <input type='number' className='inpt-number-orquideas' placeholder="1" />
-                        <button className='btn-addpedido-orquideas'>ADICIONAR AO PEDIDO</button>
+                        <input 
+                            type='number' 
+                            className='inpt-number-orquideas' 
+                            value={quantidade} 
+                            onChange={(e) => setQuantidade(Number(e.target.value))} 
+                            min="1" 
+                        />
+                        <button 
+                            className='btn-addpedido-orquideas' 
+                            onClick={handleAddToPedido}
+                        >
+                            ADICIONAR AO PEDIDO
+                        </button>
                     </div>
-
                 </div>
             </div>
 
@@ -140,16 +122,20 @@ const TelaOrquideas = ({theme, setTheme}) => {
                 <button className='btn-saiba-mais-css-orquideas' onClick={handleToggleCard}>COMO FUNCIONA</button>
             </div>
 
-            {/* O card que aparece e desaparece ao clicar no botão */}
             {showCard && (
                 <div className='como-funciona-card-orquideas'>
-                
                     <button className='btn-fechar-orquideas' onClick={handleToggleCard}>FECHAR</button>
                 </div>
             )}
+
+            <Modal 
+                isOpen={modalOpen} 
+                onClose={() => setModalOpen(false)} 
+                title={modalTitle} 
+                message={modalMessage} 
+            />
         </div>
     );
 }
 
 export default TelaOrquideas;
-

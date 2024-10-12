@@ -3,18 +3,17 @@ import axios from 'axios';
 import './Usuario.css';
 import FotoUser from '../components/FotoUser/FotoUser';
 
-const Usuario = ({ theme, setTheme }) => {
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+const Usuario = ({ theme }) => {
+    const [nome, setNome] = useState(''); // Estado para armazenar o nome do usuário
+    const [email, setEmail] = useState(''); // Estado para armazenar o email do usuário
+    const [senha, setSenha] = useState(''); // Estado para armazenar a senha do usuário
+    const [errorMessage, setErrorMessage] = useState(''); // Estado para mensagens de erro
+    const [successMessage, setSuccessMessage] = useState(''); // Estado para mensagens de sucesso
 
-    // Função para buscar os dados do usuário logado
+    // Função para buscar os dados do usuário logado ao carregar a página
     useEffect(() => {
         const userID = localStorage.getItem('userID');
         if (userID) {
-            // Faz uma requisição GET para pegar os dados do usuário
             axios.get(`http://localhost:8080/clientes/${userID}`)
                 .then((response) => {
                     const { nome, email, senha } = response.data;
@@ -35,7 +34,7 @@ const Usuario = ({ theme, setTheme }) => {
         if (userID) {
             const usuarioAtualizado = { nome, email, senha };
             axios.put(`http://localhost:8080/clientes/${userID}`, usuarioAtualizado)
-                .then((response) => {
+                .then(() => {
                     setSuccessMessage('Usuário atualizado com sucesso!');
                     setErrorMessage(''); // Limpa mensagem de erro
                 })
@@ -47,13 +46,14 @@ const Usuario = ({ theme, setTheme }) => {
         }
     };
 
+    // Função para excluir o usuário
     const excluirUsuario = () => {
         const userID = localStorage.getItem('userID');
         if (userID) {
             axios.delete(`http://localhost:8080/clientes/${userID}`)
                 .then(() => {
                     localStorage.removeItem('userID'); // Remove ID do usuário do localStorage
-                    // Redirecionar ou exibir mensagem de sucesso
+                    setSuccessMessage('Usuário excluído com sucesso!');
                 })
                 .catch((error) => {
                     console.error('Erro ao excluir usuário:', error);
@@ -68,7 +68,7 @@ const Usuario = ({ theme, setTheme }) => {
                 <div className='p-esquerda'>
                     <div className="foto-usuario">
                         <div className="foto">
-                            {/* Componente de foto do usuário */}
+                            {/* Componente para a foto do usuário */}
                         </div>
                     </div>
                     <div className="nome-usuario">
@@ -100,13 +100,13 @@ const Usuario = ({ theme, setTheme }) => {
                     <div className="button-usuario">
                         <button 
                             className='button-edituser-css' 
-                            onClick={editarUsuario} // Adiciona função para editar
+                            onClick={editarUsuario} // Chama função de editar
                         >
                             EDITAR USER
                         </button>
                         <button 
                             className='button-excluiruser-css' 
-                            onClick={excluirUsuario} // Adiciona função para excluir
+                            onClick={excluirUsuario} // Chama função de excluir
                         >
                             EXCLUIR USER
                         </button>
@@ -117,7 +117,7 @@ const Usuario = ({ theme, setTheme }) => {
                 <div className='p-direita'>
                     <p className='titulo-pedidos'>MEUS PEDIDOS</p>
                     <div className='pedidos-usuario'>
-                        {/* Lista de pedidos do usuário */}
+                        {/* Aqui você pode listar os pedidos do usuário, se houver */}
                         <p>Você ainda não fez nenhum pedido.</p>
                     </div>
                 </div>

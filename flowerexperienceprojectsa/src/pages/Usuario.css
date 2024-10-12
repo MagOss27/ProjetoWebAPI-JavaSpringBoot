@@ -143,13 +143,13 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px; /* Espaço entre os grupos de inputs */
-    margin-left: 15%;
+    margin-left: 5%;
 
 }   
 
 .input-usuario p {
     margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
     color: var(--cor-2);
     display: flex;
@@ -159,7 +159,7 @@
 
 .dark .input-usuario p {
     margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
     color: var(--cor-1);
     display: flex;
@@ -169,7 +169,7 @@
 .input-css {
     /* padding: 8px; Espaçamento interno dos inputs */
     margin-top: 10px; /* Espaço entre o parágrafo e o input */
-    width: 85%;
+    width: 100%;
     height: 35px;
     box-sizing: border-box;
     border: 2px solid var(--cor-6);
@@ -215,15 +215,15 @@
 
 }
 
-.button-edituser-css:hover{
+.button-edituser-css-dois{
     border: none;
-    width: 170px;
-    height: 60px;
+    width: 150px;
+    height: 40px;
     margin: 20px;
-    background-color: white;
-    border-radius: 30px;
-    color: var(--cor-1);
-    font-size: 20px;
+    background-color: rgb(0, 173, 38);
+    border-radius: 5px;
+    color: var(--cor-2);
+    font-size: 15px;
     font-family: "Fredoka", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
@@ -231,6 +231,53 @@
     font-variation-settings:
     "wdth" 100;
     cursor: pointer;
+    -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+
+}
+
+.button-edituser-css-dois:hover{
+    border: none;
+    width: 159px;
+    height: 42px;
+    margin: 20px;
+    background-color: rgb(0, 173, 38);
+    border-radius: 5px;
+    color: var(--cor-2);
+    font-size: 16px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    cursor: pointer;
+    -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+
+}
+
+.button-edituser-css:hover{
+    border: none;
+    width: 159px;
+    height: 42px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 30px;
+    color: var(--cor-1);
+    font-size: 19px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    cursor: pointer;
+    -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
     transition: 0.5s;
 
 }
@@ -261,13 +308,13 @@
 
 .button-excluiruser-css:hover{
     border: none;
-    width: 170px;
-    height: 60px;
+    width: 159px;
+    height: 42px;
     margin: 20px;
     background-color: white;
     border-radius: 30px;
     color: rgb(121, 0, 0);
-    font-size: 20px;
+    font-size: 19px;
     font-family: "Fredoka", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
@@ -275,8 +322,10 @@
     font-variation-settings:
     "wdth" 100;
     cursor: pointer;
+    -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
     transition: 0.5s;
-
 
 }
 
@@ -304,7 +353,7 @@
 
 .pedidos-usuario{
     width: 90%;
-    height: 85%;
+    height: 65%;
     background-color: var(--cor-4);
     overflow: hidden;
     overflow-y: scroll;
@@ -313,7 +362,7 @@
 
 .dark .pedidos-usuario{
     width: 90%;
-    height: 85%;
+    height: 65%;
     background-color: var(--cor-4);
     overflow: hidden;
     overflow-y: scroll;
@@ -354,6 +403,59 @@
     color: var(--cor-1);
     margin: 5px;
 }
+
+.senha-container {
+    position: relative;
+}
+
+.senha-container input {
+    width: 100%;
+}
+
+.senha-toggle {
+    position: absolute;
+    right: 10px; /* Ajuste conforme necessário */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--cor-1); /* Ou a cor que você preferir */
+}
+
+
+/* Usuario.css */
+
+/* Estilo do card de pedido */
+.pedido-card {
+    display: flex;
+    justify-content: space-between; /* Alinha conteúdo à esquerda e botão à direita */
+    align-items: center; /* Centraliza verticalmente */
+    background-color: #f9f9f9; /* Cor de fundo leve */
+    border: 1px solid #ddd; /* Borda sutil */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 10px 15px; /* Espaçamento interno */
+    margin: 10px 0; /* Margem entre os cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    transition: transform 0.2s; /* Animação ao passar o mouse */
+}
+
+.pedido-card:hover {
+    transform: scale(1.02); /* Efeito de aumento ao passar o mouse */
+}
+
+/* Estilo do botão de exclusão */
+.pedido-card button {
+    background-color: transparent; /* Fundo transparente */
+    border: none; /* Sem borda */
+    color: #e74c3c; /* Cor vermelha para indicar exclusão */
+    font-size: 20px; /* Tamanho do texto */
+    cursor: pointer; /* Cursor em forma de mão */
+    transition: color 0.2s; /* Transição para mudança de cor */
+}
+
+.pedido-card button:hover {
+    color: #c0392b; /* Cor mais escura ao passar o mouse */
+}
+
 
 
 

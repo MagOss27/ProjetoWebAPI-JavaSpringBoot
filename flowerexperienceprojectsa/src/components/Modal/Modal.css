@@ -1,0 +1,81 @@
+/* src/components/Modal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--cor-2);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+
+.modal-content button {
+    margin-top: 10px;
+}
+
+.modal-title{
+    color: var(--cor-1);
+    text-shadow: 2px 2px 4px var(--cor-2);
+    font-size: 25px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100; 
+}
+
+.modal-text{
+    color: black;
+    text-shadow: 2px 2px 4px var(--cor-2);
+    font-size: 18px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100; 
+}
+
+.modal-btn{
+    width: 30%;
+    background-color: var(--cor-1);
+    color: var(--cor-2);
+    font-size: 15px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-btn:hover{
+    width: 35%;
+    background-color: var(--cor-1);
+    color: var(--cor-2);
+    font-size: 17px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
