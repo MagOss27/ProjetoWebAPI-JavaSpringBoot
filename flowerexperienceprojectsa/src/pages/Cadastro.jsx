@@ -16,7 +16,7 @@ const Cadastro = ({ theme }) => {
     const handleCadastro = async (e) => {
         e.preventDefault();
 
-        if (senha.length < 8) {
+        if (senha.length < 3) {
             setErro('A senha deve ter pelo menos 8 caracteres.');
             return;
         }

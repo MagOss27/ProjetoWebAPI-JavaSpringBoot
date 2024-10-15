@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Carrossel from '../components/Carrossel/Carrossel';
 import Infos from '../components/Infos/Infos';

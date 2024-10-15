@@ -8,19 +8,14 @@
     align-items: center;
     transition: 0.5s;
     background-image: url('../assets/background-dark.png');
-    background-size: 1250px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    background-size: cover;
     flex-direction: column;
 
 }
 .dark .tela-arranjos {
     background-color: var(--cor-1);
-    height: 87.9vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: url('../assets/background-light.png');
-    background-size: 1250px;
+
 }
 
 .ta-principal-arranjos{
@@ -360,9 +355,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(10px); /* Ajustando o valor de desfoque */
+    backdrop-filter: blur(10px); 
     z-index: 50;
-    pointer-events: none; /* Não impede interação com o card */
+    pointer-events: none; 
 }
 
 @keyframes fadeIn {
@@ -417,7 +412,6 @@
 .btn-fechar-arranjos:hover {
     background-color: var(--cor-1);
 }
-
 
 
 

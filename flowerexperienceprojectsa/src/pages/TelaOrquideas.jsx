@@ -27,7 +27,6 @@ const TelaOrquideas = ({ theme, setTheme, addPedido, isLoggedIn }) => {
         }
     
         if (quantidade > 0) {
-            // Recupera o e-mail do usuário logado
             const emailLogado = localStorage.getItem('emailLogado');
             const usuarios = JSON.parse(localStorage.getItem('usuarios')) || []; 
             const usuario = usuarios.find(user => user.email === emailLogado); 

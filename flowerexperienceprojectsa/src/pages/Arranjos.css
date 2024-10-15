@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Archivo+Black&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Archivo+Black&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .arranjos {
     background-color: var(--cor-2);
@@ -7,50 +8,57 @@
     justify-content: center;
     transition: 0.5s;
     background-image: url('../assets/background-dark.png');
-    background-size: 1250px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-
+    background-size: cover; 
 }
+
 .dark .arranjos {
     background-color: var(--cor-1);
-    height: 87.9vh;
-    display: flex;
-    justify-content: center;
     background-image: url('../assets/background-light.png');
-    background-size: 1250px;
 }
 
 .container {
     background-color: transparent;
     height: 80%;
     width: 80%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
     background-color: transparent;
     height: 10vh;
     text-align: center;
-    margin-bottom: 70px;
-    
+    margin-bottom: 20px; 
+}
+
+.div-cards {
+    height: 60vh; 
+    width: 90%;
+    overflow-y: auto; 
 }
 
 .cards {
-    background-color: white;
-    height: 52vh;
     display: flex;
-    justify-content: center;
-
+    flex-wrap: wrap; 
+    justify-content: center; 
+    margin: 0; 
+    background-color: white;
+    height: 200%;
 }
 
 .card {
-
-    height: 50vh;
-    width: 30vh;
+    height: 40vh;
+    width: 25vh;
     margin: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: white; 
 }
 
 .card-image {
@@ -70,127 +78,102 @@
     align-items: center;
 }
 
-.text-css{
+.text-css {
     color: var(--cor-1);
     text-shadow: 2px 2px 4px var(--cor-2);
     font-size: 25px;
     font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
     font-weight: 500;
-    font-style: normal;
-    font-variation-settings:
-    "wdth" 100;
     transition: 0.5s;
-    text-decoration:none;
+    text-decoration: none;
     padding: 15px;
-    margin-bottom: 0;
 }
 
-.dark .text-css{
+.dark .text-css {
     color: var(--cor-2);
     text-shadow: 2px 2px 4px rgb(0, 0, 0);
-    font-size: 25px;
-    font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-variation-settings:
-    "wdth" 100;
-    transition: 0.5s;
-    text-decoration:none;
-    padding: 15px;
 }
 
-.text-p-css{
+.text-p-css-a {
     color: var(--cor-1);
     font-size: 18px;
     text-shadow: 2px 2px 4px var(--cor-2);
     font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
     font-weight: 400;
-    font-style: normal;
-    font-variation-settings:
-    "wdth" 100;
     transition: 0.5s;
-    text-decoration:none;  
+    text-decoration: none;
 }
 
-.dark .text-p-css{
+.dark .text-p-css-a {
     color: var(--cor-2);
-    font-size: 18px;
+    background-color: transparent;
     text-shadow: 2px 2px 4px rgb(0, 0, 0);
-    font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-variation-settings:
-    "wdth" 100;
-    transition: 0.5s;
-    text-decoration:none;  
 }
 
-.nome-planta{
+.nome-planta {
     color: var(--cor-1);
-    font-size: 15px;
-    font-family: "Fredoka", sans-serif;
+    font-size: px;
+    font-family: "Afacad Flux", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 600;
+    font-weight: 450;
     font-style: normal;
     font-variation-settings:
-    "wdth" 100;
-    transition: 0.5s;
-    text-decoration:none; 
-
+        "slnt" 0;
 }
 
-.button-css{
+.button-css {
     background-color: var(--cor-1);
     color: var(--cor-2);
     border: none;
     width: 220px;
-    height: 30px;   
+    height: 30px;
     font-size: 18px;
     font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
     font-weight: 600;
-    font-style: normal;
-    font-variation-settings:
-    "wdth" 100;
     transition: 0.5s;
-    text-decoration:none; 
     border-radius: 50px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-.button-css:hover{
+.button-css:hover {
+    cursor: pointer;
     background-color: var(--cor-1);
     color: var(--cor-2);
-    border: none;
     width: 225px;
     height: 35px;
-    cursor: pointer;   
     font-size: 19px;
-    font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-variation-settings:
-    "wdth" 100;
-    transition: 0.5s;
-    text-decoration:none; 
-    border-radius: 50px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-
-.div-button{
+.div-button {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
-    width: 100%;
-    background-color: white;  
-    -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
--moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);  
+    width: 90%;
+    background-color: white;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+}
+
+.foto-plantas{
+    width: 90%;
+    height: 90%;
+}
+
+.div-cards::-webkit-scrollbar {
+    width: 12px; 
+    height: 12px;
+}
+
+.div-cards::-webkit-scrollbar-track {
+    border-top-right-radius: 10px;
+    background: #f1f1f1; 
+}
+
+.div-cards::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; 
+}
+
+.div-cards::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
