@@ -1,18 +1,144 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Adm.css';
 import prod_foto from '../assets/prod-foto.png';
-import search_icon_light from '../assets/search_w.png'
-import search_icon_dark from '../assets/search_b.png'
+import search_icon_light from '../assets/search_w.png';
+import search_icon_dark from '../assets/search_b.png';
 
 const Adm = ({ theme, setTheme }) => {
     const [isRegistering, setIsRegistering] = useState(false);
+    const [nome, setNome] = useState('');
+    const [categoria, setCategoria] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [tamanho, setTamanho] = useState('');
+    const [imagem, setImagem] = useState(null);
+    const [searchTerm, setSearchTerm] = useState(''); 
+    const [produtoEncontrado, setProdutoEncontrado] = useState(null); 
 
-    const handleRegisterClick = () => {
-        setIsRegistering(false); 
+    const handleCadastrar = async () => {
+        if (!nome || !categoria) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+    
+        const novoProduto = {
+            nome,
+            categoria,
+            descricao,
+            tamanho,
+            imagem: imagem ? URL.createObjectURL(imagem) : prod_foto,
+        };
+    
+        try {
+            const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(novoProduto),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Erro ao cadastrar o produto');
+            }
+    
+            // Sucesso
+            alert('Produto cadastrado com sucesso!');
+            setNome('');
+            setCategoria('');
+            setDescricao('');
+            setTamanho('');
+            setImagem(null);
+        } catch (error) {
+            console.error(error);
+            alert('Erro ao cadastrar o produto.');
+        }
     };
 
-    const handleEditClick = () => {
-        setIsRegistering(true); 
+    const handleSearch = () => {
+        const produtosExistentes = JSON.parse(localStorage.getItem('produtos')) || {};
+        let produtoLocalizado = null;
+
+
+        for (let categoria in produtosExistentes) {
+            produtoLocalizado = produtosExistentes[categoria].find(produto => produto.nome.toLowerCase() === searchTerm.toLowerCase());
+            if (produtoLocalizado) {
+                break;
+            }
+        }
+
+        if (produtoLocalizado) {
+            setProdutoEncontrado(produtoLocalizado);
+            setNome(produtoLocalizado.nome);
+            setCategoria(produtoLocalizado.categoria);
+            setDescricao(produtoLocalizado.descricao);
+            setTamanho(produtoLocalizado.tamanho);
+            setImagem(null); 
+        } else {
+            alert('Produto não encontrado.');
+        }
+    };
+
+    const handleEdit = () => {
+        if (!produtoEncontrado) {
+            alert('Nenhum produto selecionado para edição.');
+            return;
+        }
+
+        const produtosExistentes = JSON.parse(localStorage.getItem('produtos')) || {};
+
+        const categoriaAtual = produtosExistentes[produtoEncontrado.categoria];
+        const produtoIndex = categoriaAtual.findIndex(produto => produto.nome === produtoEncontrado.nome);
+
+        if (produtoIndex > -1) {
+            categoriaAtual[produtoIndex] = {
+                nome,
+                categoria,
+                descricao,
+                tamanho,
+                imagem: imagem ? URL.createObjectURL(imagem) : prod_foto,
+            };
+
+
+            produtosExistentes[produtoEncontrado.categoria] = categoriaAtual;
+            localStorage.setItem('produtos', JSON.stringify(produtosExistentes));
+
+            alert('Produto editado com sucesso!');
+        }
+    };
+
+    const handleDelete = () => {
+        if (!produtoEncontrado) {
+            alert('Nenhum produto selecionado para exclusão.');
+            return;
+        }
+
+        const produtosExistentes = JSON.parse(localStorage.getItem('produtos')) || {};
+
+        const categoriaAtual = produtosExistentes[produtoEncontrado.categoria];
+        const produtoIndex = categoriaAtual.findIndex(produto => produto.nome === produtoEncontrado.nome);
+
+        if (produtoIndex > -1) {
+            categoriaAtual.splice(produtoIndex, 1); 
+
+         
+            if (categoriaAtual.length === 0) {
+                delete produtosExistentes[produtoEncontrado.categoria];
+            } else {
+                produtosExistentes[produtoEncontrado.categoria] = categoriaAtual;
+            }
+
+            localStorage.setItem('produtos', JSON.stringify(produtosExistentes));
+
+         
+            setNome('');
+            setCategoria('');
+            setDescricao('');
+            setTamanho('');
+            setImagem(null);
+            setProdutoEncontrado(null);
+
+            alert('Produto excluído com sucesso!');
+        }
     };
 
     return (
@@ -26,58 +152,127 @@ const Adm = ({ theme, setTheme }) => {
                 </div>
 
                 <div className='principal-dois'>
-
                     <div className={`container-mid ${isRegistering ? 'registering' : ''}`}>
-
                         <div className='left-container'>
-                            <div className='search-box-prod'>
-                                <input type="text-prod" placeholder='Procurar' />
-                                
-                                <img src={theme == 'dark' ? search_icon_dark : search_icon_light} alt='' />
-                                
-                            </div>
-                        <p>NOME</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite o nome do Produto.' />
                             <p>CATEGORIA</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite a categoria do Produto.' />
+                            <select
+                                className='input-adm-css'
+                                value={categoria}
+                                onChange={(e) => setCategoria(e.target.value)}
+                            >
+                                <option value='' disabled>Selecione a categoria do Produto</option>
+                                <option value='Arranjos'>Arranjos</option>
+                                <option value='Desidratadas'>Desidratadas</option>
+                                <option value='Orquideas'>Orquídeas</option>
+                                <option value='Plantas'>Plantas</option>
+                            </select>
+
+                            <p>NOME</p>
+                            <input
+                                type='text'
+                                className='input-adm-css'
+                                value={nome}
+                                onChange={(e) => setNome(e.target.value)}
+                                placeholder='Digite o nome do Produto.'
+                            />
+
                             <p>DESCRIÇÃO</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite a descrição do Produto.' />
+                            <input
+                                type='text'
+                                className='input-adm-css'
+                                value={descricao}
+                                onChange={(e) => setDescricao(e.target.value)}
+                                placeholder='Digite a descrição do Produto.'
+                            />
+
                             <p>TAMANHO</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite o tamanho do Produto.' />
-                            <div className='btn'>
-                            <button className='btn-css'>EDITAR</button>
-                            <button className='btn-css-excluir'>EXCLUIR</button>
-                            </div>
+                            <input
+                                type='text'
+                                className='input-adm-css'
+                                value={tamanho}
+                                onChange={(e) => setTamanho(e.target.value)}
+                                placeholder='Digite o tamanho do Produto.'
+                            />
+
+                            <p>FOTO</p>
+                            <input
+                                type='file'
+                                className='input-adm-css'
+                                onChange={(e) => setImagem(e.target.files[0])}
+                            />
+
+                            <button className='button-prod-css-adm' onClick={handleCadastrar}>CADASTRAR</button>
                             <img src={prod_foto} className='prod-foto-css' />
                         </div>
 
                         <div className='right-container'>
-                            <p>NOME</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite o nome do Produto.' />
-                            <p>CATEGORIA</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite a categoria do Produto.' />
-                            <p>DESCRIÇÃO</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite a descrição do Produto.' />
-                            <p>TAMANHO</p>
-                            <input type='text' className='input-adm-css' placeholder='Digite o tamanho do Produto.' />
-                            <button className='button-prod-css-adm'>CADASTRAR</button>
+                            <div className='search-box-prod'>
+                                <input 
+                                    type="text" 
+                                    placeholder='Procurar' 
+                                    value={searchTerm} 
+                                    onChange={(e) => setSearchTerm(e.target.value)} 
+                                />
+                                <button onClick={handleSearch}>
+                                    <img src={theme === 'dark' ? search_icon_dark : search_icon_light} alt='' />
+                                </button>
+                            </div>
 
-                                        
+                            <p>NOME</p>
+                            <input 
+                                type='text' 
+                                className='input-adm-css' 
+                                value={nome} 
+                                onChange={(e) => setNome(e.target.value)} 
+                                placeholder='Digite o nome do Produto.' 
+                            />
+
+                            <p>CATEGORIA</p>
+                            <input 
+                                type='text' 
+                                className='input-adm-css' 
+                                value={categoria} 
+                                onChange={(e) => setCategoria(e.target.value)} 
+                                placeholder='Digite a categoria do Produto.' 
+                            />
+
+                            <p>DESCRIÇÃO</p>
+                            <input 
+                                type='text' 
+                                className='input-adm-css' 
+                                value={descricao} 
+                                onChange={(e) => setDescricao(e.target.value)} 
+                                placeholder='Digite a descrição do Produto.' 
+                            />
+
+                            <p>TAMANHO</p>
+                            <input 
+                                type='text' 
+                                className='input-adm-css' 
+                                value={tamanho} 
+                                onChange={(e) => setTamanho(e.target.value)} 
+                                placeholder='Digite o tamanho do Produto.' 
+                            />
+
+                            <div className='btn'>
+                                <button className='btn-css' onClick={handleEdit}>EDITAR</button>
+                                <button className='btn-css-excluir' onClick={handleDelete}>EXCLUIR</button>
+                            </div>
                         </div>
                     </div>
 
                     <div className='container-button'>
                         <div className='button-div-um'>
-                            <button className='button-prod-css' onClick={handleEditClick}>EDITAR PRODUTO</button>
+                            <button className='button-prod-css' onClick={() => setIsRegistering(true)}>CADASTRAR PRODUTO</button>
                         </div>
                         <div className='button-div-dois'>
-                            <button className='button-prod-css' onClick={handleRegisterClick}>CADASTRAR PRODUTO</button>
+                            <button className='button-prod-css' onClick={() => setIsRegistering(false)}>EDITAR PRODUTO</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default Adm;

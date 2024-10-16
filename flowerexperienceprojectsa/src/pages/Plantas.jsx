@@ -9,32 +9,33 @@ import planta_cin from '../assets/planta-cin.png';
 
 const Plantas = () => {
   const [produtos, setProdutos] = useState([]);
+  const [plantasCadastradas, setPlantasCadastradas] = useState([]);
 
   useEffect(() => {
-
     const produtosPadrao = [
-      { nome: 'PLANTA JURERÊ', imagem: planta_um },
-      { nome: 'PLANTA DANIELA', imagem: planta_dois },
-      { nome: 'PLANTA CAMPECHE', imagem: planta_tre },
-      { nome: 'PLANTA CANASVIEIRAS', imagem: planta_qua },
-      { nome: 'PLANTA NAUFRAGADOS', imagem: planta_cin },
+        { nome: 'PLANTA JURERÊ', imagem: planta_um },
+        { nome: 'PLANTA DANIELA', imagem: planta_dois },
+        { nome: 'PLANTA CAMPECHE', imagem: planta_tre },
+        { nome: 'PLANTA CANASVIEIRAS', imagem: planta_qua },
+        { nome: 'PLANTA NAUFRAGADOS', imagem: planta_cin },
     ];
 
+    // Buscar plantas cadastradas no backend
+    const fetchPlantasCadastradas = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/plantas'); // Endpoint do backend
+            const data = await response.json();
+            setPlantasCadastradas(data); // Atualiza com as plantas do banco
+        } catch (error) {
+            console.error("Erro ao buscar plantas:", error);
+        }
+    };
 
-    const produtosCadastrados = JSON.parse(localStorage.getItem('produtos')) || {};
+    // Atualizar os produtos
+    fetchPlantasCadastradas();
+    setProdutos([...produtosPadrao, ...plantasCadastradas]); // Combina plantas padrão com plantas do banco
+}, [plantasCadastradas]); // Reexecuta quando plantas cadastradas forem atualizadas
 
-
-    if (!produtosCadastrados["Plantas"]) {
-      produtosCadastrados["Plantas"] = produtosPadrao;
-      localStorage.setItem('produtos', JSON.stringify(produtosCadastrados));
-    }
-
-
-    const produtosPlantas = produtosCadastrados["Plantas"] || [];
-
-
-    setProdutos(produtosPlantas);
-  }, []);
 
   return (
     <div className='plantas'>

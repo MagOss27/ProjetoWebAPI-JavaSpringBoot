@@ -6,18 +6,14 @@
     height: 87.9vh;
     display: flex;
     justify-content: center;
-    align-items: center;
     transition: 0.5s;
     background-image: url('../assets/background-dark.png');
-    background-size: 1250px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    background-size: cover; 
 }
 
 .dark .adm {
     background-color: var(--cor-1);
     background-image: url('../assets/background-light.png');
-    background-size: 1250px;
-    height: 87.9vh;
 }
 
 .principal {
@@ -29,6 +25,7 @@
     border-radius: 25px;
     flex-direction: column;
     transition: 0.5s;
+    margin-top: 50px;
 }
 
 .dark .principal {
@@ -87,19 +84,19 @@
 }
 
 .container-mid {
-    position: relative; /* Permite sobreposição */
+    position: relative;
     display: flex;
     width: 95%;
     height: 75%;
     border-radius: 25px;
     box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
-    transition: transform 0.5s ease; /* Transição suave */
+    transition: transform 0.5s ease; 
     
 }
 .left-container {
-    position: relative; /* Permite a sobreposição */
+    position: relative; 
     width: 50%;
-    height: 100%;
+    height: 108%;
     display: flex;
     flex-direction: column;
     border-top-left-radius: 25px;
@@ -111,15 +108,14 @@
 
 
 .right-container {
-    position: relative; /* Permite a sobreposição */
+    position: relative; 
     width: 50%;
-    height: 100%;
+    height: 97%;
     display: flex;
     flex-direction: column;
     border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
     background-color: var(--cor-4);
-    z-index: 1; /* Coloca a right-container abaixo da left-container */
+    z-index: 1; 
 }
 
 
@@ -134,7 +130,7 @@
 }
 
 .right-container p {
-    margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
+    margin: 5px 0; 
     font-size: 11px;
     font-weight: bold;
     color: var(--cor-1);
@@ -147,14 +143,15 @@
 
 
 .left-container p {
-    margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
+    margin: 5px 0; 
     font-size: 11px;
     font-weight: bold;
     color: var(--cor-1);
     display: flex;
     align-items: center;
     margin-left: 7%;
-    margin-top: 10px;
+    margin-top: 15px;
+    padding: 1px;
 }
 
 
@@ -180,17 +177,30 @@
 /* Botões */
 .container-button {
     width: 100%;
-    height: 25%;
+    height: 30%;
+    margin-top: 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
 }
 
-.button-div-um, .button-div-dois {
+.button-div-dois {
     width: 50%;
     height: 100%;
     justify-content: center;
     align-items: center;
     display: flex;
+
+}
+
+.button-div-um {
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
 }
 
 .button-prod-css, .button-excluirprod-css {
@@ -207,6 +217,24 @@
     box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
     transition: 0.5s; /* Transição suave */
 }
+
+.button-prod-css:hover{
+    border: none;
+    width: 150px;
+    height: 40px;
+    margin: 20px;
+    background-color: var(--cor-1);
+    color: white;
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+    transition: 0.5s; /* Transição suave */
+}
+
+
 
 .button-excluirprod-css {
     color: rgb(168, 4, 4);
@@ -277,11 +305,12 @@
 
 .button-prod-css-adm{
     border: none;
-    width: 150px;
-    height: 30px;
-    margin-top: 15px;
+    width: 120px;
+    height: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     color: var(--cor-2);
-    margin-left: 42%;
+    margin-left: 37.5%;
     background-color: var(--cor-1);
     border-radius: 30px;
     font-size: 12px;
@@ -289,6 +318,24 @@
     font-weight: 500;
     cursor: pointer;
     box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+}
+
+.button-prod-css-adm:hover{
+    border: none;
+    width: 120px;
+    height: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: var(--cor-1);
+    margin-left: 37.5%;
+    background-color: var(--cor-2);
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+    transition: 0.5s;
 }
 
 .button-prod-css-adm-um{
@@ -313,15 +360,15 @@
     background-color: var(--cor-4);
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px; 
+justify-content: center;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px; 
 }
 
 .btn-css{
     border: none;
-    width: 150px;
-    height: 30px;
+    width: 120px;
+    height: 25px;
     color: var(--cor-4);
     margin: 20px;
     background-color: var(--cor-1);
@@ -333,12 +380,29 @@
     box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
 }
 
+.btn-css:hover{
+    border: none;
+    width: 120px;
+    height: 25px;
+    color: var(--cor-1);
+    margin: 20px;
+    background-color: rgb(226, 226, 226);
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+    border: 1px rgba(0, 0, 0, 0.75);
+    transition: 0.5s;
+}
+
 
 
 .btn-css-excluir{
     border: none;
-    width: 150px;
-    height: 30px;
+    width: 120px;
+    height: 25px;
     color: var(--cor-4);
     margin: 20px;
     background-color: rgb(163, 0, 0);
@@ -350,4 +414,26 @@
     box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
 }
 
+.btn-css-excluir:hover{
+    border: none;
+    width: 120px;
+    height: 25px;
+    color: rgb(163, 0, 0);;
+    margin: 20px;
+    background-color: rgb(226, 226, 226);
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
+    transition: 0.5s;
+}
 
+.search-box-prod button {
+    position: absolute; 
+    right: 32%; 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+}
