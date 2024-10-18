@@ -19,6 +19,18 @@
 }
 
 .ta-principal-plantas{
+    background-color: var(--cor-1);
+    width: 70%;
+    height: 70%;
+    display: flex;
+    border-radius: 5px;
+    -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);  
+    transition: 0.5s;
+}
+
+.dark .ta-principal-plantas{
     background-color: var(--cor-2);
     width: 70%;
     height: 70%;
@@ -70,6 +82,20 @@
 
 .ta-titulo-p-plantas{
     margin-left: 33px;
+    color: var(--cor-2);
+    font-size: 25px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    transition: 0.5s;
+}
+
+.dark .ta-titulo-p-plantas{
+    margin-left: 33px;
+    color: black;
     font-size: 25px;
     font-family: "Fredoka", sans-serif;
     font-optical-sizing: auto;
@@ -102,6 +128,20 @@
 }
 
 .ta-entrega-p-titulo-plantas{
+    color: var(--cor-2);
+    margin-left: 32px;
+    font-size: 20px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100; 
+    transition: 0.5s;
+}
+
+.dark .ta-entrega-p-titulo-plantas{
+    color:black;
     margin-left: 32px;
     font-size: 20px;
     font-family:Arial, Helvetica, sans-serif;
@@ -113,6 +153,35 @@
 }
 
 .ta-entrega-p-text-plantas{
+    color: var(--cor-2);
+    margin-left: 32px;
+    margin-right: 35px;
+    font-size: 18px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100; 
+    transition: 0.5s;
+
+}
+
+.dark .ta-entrega-p-text-plantas{
+    color: black;
+    margin-left: 32px;
+    margin-right: 35px;
+    font-size: 18px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100; 
+
+}
+
+.dark .ta-entrega-p-text-plantas{
     margin-left: 32px;
     margin-right: 35px;
     font-size: 18px;
@@ -146,6 +215,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.5);
     
 }
 

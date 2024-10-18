@@ -9,19 +9,14 @@
     align-items: center;
     transition: 0.5s;
     background-image: url('../assets/background-dark.png');
-    background-size: 1250px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    background-size: cover;
 
 }
 
 .dark .div-user {
     background-color: var(--cor-1);
-    height: 87.9vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: url('../assets/background-light.png');
-    background-size: 1250px;
+
 
 }
 
@@ -67,7 +62,7 @@
 
 .foto-usuario {
     background-image: url('../assets/user_light.png');
-    background-size: 150px;
+    background-size: 130px;
     background-repeat: no-repeat;
     background-position: center;
     height: 30%;
@@ -81,7 +76,7 @@
 
 .dark .foto-usuario {
     background-image: url('../assets/user_dark.png');
-    background-size: 150px;
+    background-size: 130px;
     background-repeat: no-repeat;
     background-position: center;
     height: 30%;
@@ -142,13 +137,12 @@
 .input-usuario {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px; /* Espaço entre os grupos de inputs */
     margin-left: 5%;
 
 }   
 
 .input-usuario p {
-    margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
+    margin: 0px 0; 
     font-size: 15px;
     font-weight: bold;
     color: var(--cor-2);
@@ -158,7 +152,7 @@
 }
 
 .dark .input-usuario p {
-    margin: 5px 0; /* Margem acima e abaixo dos parágrafos */
+    margin: 0px 0; 
     font-size: 15px;
     font-weight: bold;
     color: var(--cor-1);
@@ -167,13 +161,14 @@
 }
 
 .input-css {
-    /* padding: 8px; Espaçamento interno dos inputs */
-    margin-top: 10px; /* Espaço entre o parágrafo e o input */
+    margin-top: 3px;
+    margin-bottom: 20px;
     width: 100%;
     height: 35px;
     box-sizing: border-box;
-    border: 2px solid var(--cor-6);
+    border: 1px solid var(--cor-6);
     font-size: 13px;
+    border-radius: 5px;
 }
 
 
@@ -200,7 +195,7 @@
     margin: 20px;
     background-color: white;
     border-radius: 30px;
-    color: var(--cor-1);
+    color: rgb(0, 173, 38);
     font-size: 18px;
     font-family: "Fredoka", sans-serif;
     font-optical-sizing: auto;
@@ -221,7 +216,7 @@
     height: 40px;
     margin: 20px;
     background-color: rgb(0, 173, 38);
-    border-radius: 5px;
+    border-radius: 25px;
     color: var(--cor-2);
     font-size: 15px;
     font-family: "Fredoka", sans-serif;
@@ -242,9 +237,9 @@
     width: 159px;
     height: 42px;
     margin: 20px;
-    background-color: rgb(0, 173, 38);
-    border-radius: 5px;
-    color: var(--cor-2);
+    background-color: var(--cor-4);
+    border-radius: 25px;
+    color: rgb(0, 173, 38);
     font-size: 16px;
     font-family: "Fredoka", sans-serif;
     font-optical-sizing: auto;
@@ -256,6 +251,7 @@
     -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
     box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
+    transition: 0.5s;
 
 }
 
@@ -381,26 +377,26 @@
 }
 
 .titulo-pedidos {
+    color: var(--cor-2);
     font-size: 40px;
-    font-family: "Fredoka", sans-serif;
+    font-family: "Afacad Flux", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
     font-variation-settings:
-    "wdth" 100;
-    color: var(--cor-2);
+    "wdth" 110;
     margin: 5px;
 }
 
 .dark .titulo-pedidos {
+    color: var(--cor-1);
     font-size: 40px;
-    font-family: "Fredoka", sans-serif;
+    font-family: "Afacad Flux", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
     font-variation-settings:
-    "wdth" 100;
-    color: var(--cor-1);
+    "wdth" 110;
     margin: 5px;
 }
 
@@ -414,47 +410,93 @@
 
 .senha-toggle {
     position: absolute;
-    right: 10px; /* Ajuste conforme necessário */
+    right: 10px; 
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: var(--cor-1); /* Ou a cor que você preferir */
+    color: var(--cor-1); 
 }
 
 
-/* Usuario.css */
 
-/* Estilo do card de pedido */
 .pedido-card {
     display: flex;
-    justify-content: space-between; /* Alinha conteúdo à esquerda e botão à direita */
-    align-items: center; /* Centraliza verticalmente */
-    background-color: #f9f9f9; /* Cor de fundo leve */
-    border: 1px solid #ddd; /* Borda sutil */
-    border-radius: 8px; /* Bordas arredondadas */
-    padding: 10px 15px; /* Espaçamento interno */
-    margin: 10px 0; /* Margem entre os cards */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
-    transition: transform 0.2s; /* Animação ao passar o mouse */
+    align-items: center; 
+    background-color: #f9f9f9; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 10px 15px; 
+    margin: 10px 0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s; 
 }
 
 .pedido-card:hover {
-    transform: scale(1.02); /* Efeito de aumento ao passar o mouse */
+    transform: scale(1.02); 
 }
 
-/* Estilo do botão de exclusão */
+
 .pedido-card button {
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem borda */
-    color: #e74c3c; /* Cor vermelha para indicar exclusão */
-    font-size: 20px; /* Tamanho do texto */
-    cursor: pointer; /* Cursor em forma de mão */
-    transition: color 0.2s; /* Transição para mudança de cor */
+    background-color: transparent; 
+    border: none; 
+    color: #e74c3c; 
+    font-size: 20px; 
+    cursor: pointer; 
+    transition: color 0.2s; 
 }
 
 .pedido-card button:hover {
-    color: #c0392b; /* Cor mais escura ao passar o mouse */
+    color: #c0392b; 
 }
+
+.lixo-icon{
+    width: 30px;
+}
+
+.pedido-icon{
+    width: 35px;
+}
+
+.pedido-imagem{
+    width: 10%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.pedido-nome{
+    width: 40%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.pedido-gap{
+    width: 600px;
+    height: 40px;
+    height: 100%;
+}
+
+.pedido-btn{
+    width: 10%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.zero-pedidos{
+    font-size: 30px;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+    color: var(--cor-6);
+    margin: 5px;
+    text-align: center;
+}
+
 
 
 

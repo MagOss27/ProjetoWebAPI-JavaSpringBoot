@@ -18,14 +18,19 @@
 }
 
 .ta-principal-orquideas{
-    background-color: var(--cor-2);
+    background-color: var(--cor-1);
     width: 70%;
     height: 70%;
     display: flex;
     border-radius: 5px;
     -webkit-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);
-    box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75);  
+    box-shadow: -1px 23px 32px -15px rgba(0,0,0,0.75); 
+    transition: 0.5s; 
+}
+
+.dark .ta-principal-orquideas{
+   background-color:  var(--cor-2);
 }
 
 .ta-esquerda-orquideas{
@@ -68,6 +73,7 @@
 }
 
 .ta-titulo-p-orquideas{
+    color: var(--cor-2);
     margin-left: 33px;
     font-size: 25px;
     font-family: "Fredoka", sans-serif;
@@ -76,6 +82,11 @@
     font-style: normal;
     font-variation-settings:
     "wdth" 100;
+    transition: 0.5s;
+}
+
+.dark .ta-titulo-p-orquideas{
+    color: black;
 }
 
 .ta-estrelas-p-orquideas{
@@ -101,6 +112,7 @@
 }
 
 .ta-entrega-p-titulo-orquideas{
+    color: var(--cor-2);
     margin-left: 32px;
     font-size: 20px;
     font-family:Arial, Helvetica, sans-serif;
@@ -109,9 +121,15 @@
     font-style: normal;
     font-variation-settings:
     "wdth" 100; 
+    transition: 0.5s;
+}
+
+.dark .ta-entrega-p-titulo-orquideas{
+    color: black;
 }
 
 .ta-entrega-p-text-orquideas{
+    color: var(--cor-2);
     margin-left: 32px;
     margin-right: 35px;
     font-size: 18px;
@@ -121,7 +139,12 @@
     font-style: normal;
     font-variation-settings:
     "wdth" 100; 
+    transition: 0.5s;
 
+}
+
+.dark .ta-entrega-p-text-orquideas{
+    color: black;
 }
 
 .ta-estrelas-orquideas{
