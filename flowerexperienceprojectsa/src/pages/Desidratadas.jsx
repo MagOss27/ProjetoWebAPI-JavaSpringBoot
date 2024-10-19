@@ -9,6 +9,7 @@ import des_cin from '../assets/des-cin.png';
 
 const Desidratadas = () => {
     const [produtos, setProdutos] = useState([]);
+    const [desidratadasCadastradas, setdesidratadasCadastradas] = useState([]);
 
     useEffect(() => {
 
@@ -20,21 +21,22 @@ const Desidratadas = () => {
             { nome: 'SEMPRE VIVA SANTA CRUZ', imagem: des_cin },
         ];
 
+        // Buscar plantas cadastradas no backend
+        const fetchPlantasCadastradas = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/desidratadas'); // Endpoint do backend
+                const data = await response.json();
+                setdesidratadasCadastradas(data); // Atualiza com as plantas do banco
+            } catch (error) {
+                console.error("Erro ao buscar plantas:", error);
+            }
+        };
 
-        const produtosCadastrados = JSON.parse(localStorage.getItem('produtos')) || {};
+        // Atualizar os produtos
+        fetchPlantasCadastradas();
+        setProdutos([...produtosPadrao, ...desidratadasCadastradas]); // Combina plantas padrão com plantas do banco
+    }, [desidratadasCadastradas]); // Reexecuta quando plantas cadastradas forem atualizadas
 
-
-        if (!produtosCadastrados["Desidratadas"]) {
-            produtosCadastrados["Desidratadas"] = produtosPadrao;
-            localStorage.setItem('produtos', JSON.stringify(produtosCadastrados));
-        }
-
-
-        const produtosDesidratadas = produtosCadastrados["Desidratadas"] || [];
-
-
-        setProdutos(produtosDesidratadas);
-    }, []);
 
     return (
         <div className='desidratadas'>

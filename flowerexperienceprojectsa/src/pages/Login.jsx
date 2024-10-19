@@ -23,8 +23,11 @@ const Login = ({ theme }) => {
             // Verifica a resposta do backend
             if (response.data === "admin") {
                 alert('Login como administrador realizado com sucesso!');
+                localStorage.setItem('isAdmin', 'true'); // Define o administrador no localStorage
+                localStorage.setItem('isLoggedIn', 'true'); // Define o estado de login
                 navigate('/Adm'); // Redireciona para a página do admin
             } else if (response.status === 200) {
+                localStorage.setItem('isLoggedIn', 'true'); // Define o estado de login
                 alert('Login realizado com sucesso!');
                 navigate('/Usuario'); // Redireciona para a página do usuário
             }

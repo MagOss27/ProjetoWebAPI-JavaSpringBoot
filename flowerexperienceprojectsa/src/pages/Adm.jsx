@@ -29,6 +29,7 @@ const Adm = ({ theme, setTheme }) => {
         };
     
         try {
+            // Definir a URL correta com base na categoria
             const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}`, {
                 method: 'POST',
                 headers: {
@@ -54,27 +55,33 @@ const Adm = ({ theme, setTheme }) => {
         }
     };
 
-    const handleSearch = () => {
-        const produtosExistentes = JSON.parse(localStorage.getItem('produtos')) || {};
-        let produtoLocalizado = null;
-
-
-        for (let categoria in produtosExistentes) {
-            produtoLocalizado = produtosExistentes[categoria].find(produto => produto.nome.toLowerCase() === searchTerm.toLowerCase());
-            if (produtoLocalizado) {
-                break;
-            }
+    const handleSearch = async () => {
+        if (!searchTerm) {
+            alert('Por favor, insira o nome do produto.');
+            return;
         }
-
-        if (produtoLocalizado) {
+    
+        try {
+            // Fazendo requisição para o backend para buscar o produto pelo nome
+            const response = await fetch(`http://localhost:8080/plantas?nome=${encodeURIComponent(searchTerm)}`);
+            const produtoLocalizado = await response.json();
+    
+            if (!response.ok || !produtoLocalizado) {
+                alert('Produto não encontrado.');
+                return;
+            }
+    
+            // Preenchendo os inputs com as informações do produto
             setProdutoEncontrado(produtoLocalizado);
             setNome(produtoLocalizado.nome);
             setCategoria(produtoLocalizado.categoria);
             setDescricao(produtoLocalizado.descricao);
             setTamanho(produtoLocalizado.tamanho);
-            setImagem(null); 
-        } else {
-            alert('Produto não encontrado.');
+            setImagem(null); // O ideal seria exibir a imagem atual, se houver.
+    
+        } catch (error) {
+            console.error('Erro ao buscar o produto:', error);
+            alert('Erro ao buscar o produto.');
         }
     };
 

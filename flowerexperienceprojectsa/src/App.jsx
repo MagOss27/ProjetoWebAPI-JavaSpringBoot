@@ -16,7 +16,8 @@ import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem('isLoggedIn') === 'true'));
   const [isAdmin, setIsAdmin] = useState(localStorage.getItem('isAdmin') === 'true');
   const current_theme = localStorage.getItem('current_theme');
   const [theme, setTheme] = useState(current_theme ? current_theme : 'light');

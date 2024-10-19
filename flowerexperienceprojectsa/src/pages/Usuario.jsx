@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Importe o useNavigate
 import './Usuario.css';
 import FotoUser from '../components/FotoUser/FotoUser';
 
@@ -9,6 +10,7 @@ const Usuario = ({ theme }) => {
     const [senha, setSenha] = useState(''); // Estado para armazenar a senha do usuário
     const [errorMessage, setErrorMessage] = useState(''); // Estado para mensagens de erro
     const [successMessage, setSuccessMessage] = useState(''); // Estado para mensagens de sucesso
+    const navigate = useNavigate(); // Inicialize o hook useNavigate
 
     // Função para buscar os dados do usuário logado ao carregar a página
     useEffect(() => {
@@ -53,7 +55,10 @@ const Usuario = ({ theme }) => {
             axios.delete(`http://localhost:8080/clientes/${userID}`)
                 .then(() => {
                     localStorage.removeItem('userID'); // Remove ID do usuário do localStorage
+                    localStorage.removeItem('isLoggedIn'); // Remove o estado de login
                     setSuccessMessage('Usuário excluído com sucesso!');
+                 alert("Sua conta foi Excluída com Sucesso!")
+                    navigate('/'); // Redireciona para a tela Home
                 })
                 .catch((error) => {
                     console.error('Erro ao excluir usuário:', error);
