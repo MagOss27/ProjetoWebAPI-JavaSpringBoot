@@ -1,22 +1,60 @@
 # ProjetoWebAPI_JavaSpringBoot
 
--- Cria um banco de dados chamado "nome_do_banco"
+Banco de Dados (MySQL)
+
 CREATE DATABASE flowerexperience;
+use flowerexperience;
 
--- Usar o banco criado
-Use flowerexperience;
-
--- Cria uma tabela dentro do banco de dados "nome_do_banco"
--- A tabela tem as colunas: id, nome_completo, email e senha
 CREATE TABLE cliente (
-    id INTEGER AUTO_INCREMENT PRIMARY KEY, -- Define a coluna "id" como chave primária, com incremento automático
-    nome_completo VARCHAR(200) NOT NULL,   -- Coluna "nome_completo" com até 200 caracteres e não pode ser nula
-    email VARCHAR(50) NOT NULL UNIQUE,     -- Coluna "email" com até 50 caracteres, não pode ser nula e deve ser única
-    senha TEXT NOT NULL                    -- Coluna "senha" que armazena a senha do usuário, não pode ser nula
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    nome_completo VARCHAR(200) NOT NULL, 
+    email VARCHAR(50) NOT NULL UNIQUE,
+    senha TEXT NOT NULL
 );
 
--- Seleciona todos os registros da tabela "nome_do_banco"
-SELECT * FROM cliente;
+CREATE TABLE planta (
+  id INT AUTO_INCREMENT PRIMARY KEY,    
+  nome VARCHAR(100) NOT NULL,          
+  categoria VARCHAR(100) NOT NULL,    
+  descricao TEXT NOT NULL,           
+  tamanho VARCHAR(50) NOT NULL,         
+  imagem VARCHAR(255) NOT NULL 
+);
+
+CREATE TABLE desidratada (
+  id INT AUTO_INCREMENT PRIMARY KEY,    
+  nome VARCHAR(100) NOT NULL,          
+  categoria VARCHAR(100) NOT NULL,    
+  descricao TEXT NOT NULL,           
+  tamanho VARCHAR(50) NOT NULL,         
+  imagem VARCHAR(255) NOT NULL 
+);
+
+CREATE TABLE arranjo (
+  id INT AUTO_INCREMENT PRIMARY KEY,    
+  nome VARCHAR(100) NOT NULL,          
+  categoria VARCHAR(100) NOT NULL,    
+  descricao TEXT NOT NULL,           
+  tamanho VARCHAR(50) NOT NULL,         
+  imagem VARCHAR(255) NOT NULL 
+);
+
+CREATE TABLE orquidea (
+  id INT AUTO_INCREMENT PRIMARY KEY,    
+  nome VARCHAR(100) NOT NULL,          
+  categoria VARCHAR(100) NOT NULL,    
+  descricao TEXT NOT NULL,           
+  tamanho VARCHAR(50) NOT NULL,         
+  imagem VARCHAR(255) NOT NULL 
+);
+
+
+select * from planta;
+select * from desidratada;
+select * from arranjo;
+select * from orquidea;
+
+select * from cliente;
 
 Backend: (flowerexperience)
 1. Instalação das extensões:
@@ -28,8 +66,6 @@ Instale as seguintes extensões para o seu ambiente de desenvolvimento:
 
 2. Configuração do banco de dados:
 Após concluir a criação do banco de dados, é necessário configurar o backend adequadamente para garantir seu funcionamento contínuo.
-
-
 
 Frontend: (flowerexperiencesa)
 No frontend, execute os seguintes passos para configurar as dependências:
