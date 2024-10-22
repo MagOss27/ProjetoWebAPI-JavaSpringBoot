@@ -37,7 +37,6 @@ const Desidratadas = () => {
         setProdutos([...produtosPadrao, ...desidratadasCadastradas]); // Combina plantas padrão com plantas do banco
     }, [desidratadasCadastradas]); // Reexecuta quando plantas cadastradas forem atualizadas
 
-
     return (
         <div className='desidratadas'>
             <div className='container'>

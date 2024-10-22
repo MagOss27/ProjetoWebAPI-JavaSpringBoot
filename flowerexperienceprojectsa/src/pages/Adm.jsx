@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Adm.css';
 import prod_foto from '../assets/prod-foto.png';
 import search_icon_light from '../assets/search_w.png';
@@ -29,7 +29,6 @@ const Adm = ({ theme, setTheme }) => {
         };
     
         try {
-            // Definir a URL correta com base na categoria
             const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}`, {
                 method: 'POST',
                 headers: {
@@ -42,7 +41,6 @@ const Adm = ({ theme, setTheme }) => {
                 throw new Error('Erro ao cadastrar o produto');
             }
     
-            // Sucesso
             alert('Produto cadastrado com sucesso!');
             setNome('');
             setCategoria('');
@@ -60,91 +58,96 @@ const Adm = ({ theme, setTheme }) => {
             alert('Por favor, insira o nome do produto.');
             return;
         }
-    
+   
         try {
-            // Fazendo requisição para o backend para buscar o produto pelo nome
-            const response = await fetch(`http://localhost:8080/plantas?nome=${encodeURIComponent(searchTerm)}`);
-            const produtoLocalizado = await response.json();
-    
-            if (!response.ok || !produtoLocalizado) {
+            const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}?nome=${encodeURIComponent(searchTerm)}`);
+            const produtosLocalizados = await response.json();
+   
+            if (!response.ok || !produtosLocalizados || produtosLocalizados.length === 0) {
                 alert('Produto não encontrado.');
                 return;
             }
-    
-            // Preenchendo os inputs com as informações do produto
-            setProdutoEncontrado(produtoLocalizado);
-            setNome(produtoLocalizado.nome);
-            setCategoria(produtoLocalizado.categoria);
-            setDescricao(produtoLocalizado.descricao);
-            setTamanho(produtoLocalizado.tamanho);
-            setImagem(null); // O ideal seria exibir a imagem atual, se houver.
-    
+   
+            const produto = produtosLocalizados.find(p => p.nome.toLowerCase() === searchTerm.toLowerCase());
+   
+            if (!produto) {
+                alert('Produto não encontrado.');
+                return;
+            }
+   
+            setProdutoEncontrado(produto);
+            setNome(produto.nome);
+            setCategoria(produto.categoria);
+            setDescricao(produto.descricao);
+            setTamanho(produto.tamanho);
+            setImagem(null);
+   
         } catch (error) {
             console.error('Erro ao buscar o produto:', error);
             alert('Erro ao buscar o produto.');
         }
     };
 
-    const handleEdit = () => {
+    const handleEdit = async () => {
         if (!produtoEncontrado) {
             alert('Nenhum produto selecionado para edição.');
             return;
         }
 
-        const produtosExistentes = JSON.parse(localStorage.getItem('produtos')) || {};
+        const novoProduto = {
+            nome,
+            categoria,
+            descricao,
+            tamanho,
+            imagem: imagem ? URL.createObjectURL(imagem) : prod_foto,
+        };
 
-        const categoriaAtual = produtosExistentes[produtoEncontrado.categoria];
-        const produtoIndex = categoriaAtual.findIndex(produto => produto.nome === produtoEncontrado.nome);
+        try {
+            const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}/${produtoEncontrado.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(novoProduto),
+            });
 
-        if (produtoIndex > -1) {
-            categoriaAtual[produtoIndex] = {
-                nome,
-                categoria,
-                descricao,
-                tamanho,
-                imagem: imagem ? URL.createObjectURL(imagem) : prod_foto,
-            };
-
-
-            produtosExistentes[produtoEncontrado.categoria] = categoriaAtual;
-            localStorage.setItem('produtos', JSON.stringify(produtosExistentes));
+            if (!response.ok) {
+                throw new Error('Erro ao editar o produto.');
+            }
 
             alert('Produto editado com sucesso!');
+        } catch (error) {
+            console.error('Erro ao editar o produto:', error);
+            alert('Erro ao editar o produto.');
         }
     };
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (!produtoEncontrado) {
             alert('Nenhum produto selecionado para exclusão.');
             return;
         }
-
-        const produtosExistentes = JSON.parse(localStorage.getItem('produtos')) || {};
-
-        const categoriaAtual = produtosExistentes[produtoEncontrado.categoria];
-        const produtoIndex = categoriaAtual.findIndex(produto => produto.nome === produtoEncontrado.nome);
-
-        if (produtoIndex > -1) {
-            categoriaAtual.splice(produtoIndex, 1); 
-
-         
-            if (categoriaAtual.length === 0) {
-                delete produtosExistentes[produtoEncontrado.categoria];
-            } else {
-                produtosExistentes[produtoEncontrado.categoria] = categoriaAtual;
+   
+        try {
+            const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}/${produtoEncontrado.id}`, {
+                method: 'DELETE',
+            });
+   
+            if (!response.ok) {
+                throw new Error('Erro ao excluir o produto.');
             }
-
-            localStorage.setItem('produtos', JSON.stringify(produtosExistentes));
-
-         
+   
+            alert('Produto excluído com sucesso!');
+   
             setNome('');
             setCategoria('');
             setDescricao('');
             setTamanho('');
             setImagem(null);
             setProdutoEncontrado(null);
-
-            alert('Produto excluído com sucesso!');
+        } catch (error) {
+            console.error('Erro ao excluir o produto:', error);
+            alert('Erro ao excluir o produto.');
         }
     };
 
@@ -235,13 +238,17 @@ const Adm = ({ theme, setTheme }) => {
                             />
 
                             <p>CATEGORIA</p>
-                            <input 
-                                type='text' 
-                                className='input-adm-css' 
-                                value={categoria} 
-                                onChange={(e) => setCategoria(e.target.value)} 
-                                placeholder='Digite a categoria do Produto.' 
-                            />
+                            <select
+                                className='input-adm-css'
+                                value={categoria}
+                                onChange={(e) => setCategoria(e.target.value)}
+                            >
+                                <option value='' disabled>Selecione a categoria do Produto</option>
+                                <option value='Arranjos'>Arranjos</option>
+                                <option value='Desidratadas'>Desidratadas</option>
+                                <option value='Orquideas'>Orquídeas</option>
+                                <option value='Plantas'>Plantas</option>
+                            </select>
 
                             <p>DESCRIÇÃO</p>
                             <input 

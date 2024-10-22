@@ -9,6 +9,7 @@ import orq_cin from '../assets/orq-cin.png';
 
 const Orquideas = () => {
   const [produtos, setProdutos] = useState([]);
+  const [plantasCadastradas, setPlantasCadastradas] = useState([]);
 
   useEffect(() => {
 
@@ -20,20 +21,21 @@ const Orquideas = () => {
       { nome: 'ORQUÍDEA LAGOA PERI', imagem: orq_cin },
     ];
 
-    const produtosCadastrados = JSON.parse(localStorage.getItem('produtos')) || {};
+// Buscar plantas cadastradas no backend
+const fetchPlantasCadastradas = async () => {
+  try {
+      const response = await fetch('http://localhost:8080/orquideas'); // Endpoint do backend
+      const data = await response.json();
+      setPlantasCadastradas(data); // Atualiza com as plantas do banco
+  } catch (error) {
+      console.error("Erro ao buscar plantas:", error);
+  }
+};
 
-
-    if (!produtosCadastrados["Orquideas"]) {
-      produtosCadastrados["Orquideas"] = produtosPadrao;
-      localStorage.setItem('produtos', JSON.stringify(produtosCadastrados));
-    }
-
-
-    const produtosOrquideas = produtosCadastrados["Orquideas"] || [];
-
-
-    setProdutos(produtosOrquideas);
-  }, []);
+// Atualizar os produtos
+fetchPlantasCadastradas();
+setProdutos([...produtosPadrao, ...plantasCadastradas]); // Combina plantas padrão com plantas do banco
+}, [plantasCadastradas]); // Reexecuta quando plantas cadastradas forem atualizadas
 
   return (
     <div className='orquideas'>

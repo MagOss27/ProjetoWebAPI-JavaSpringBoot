@@ -23,7 +23,7 @@ const Arranjos = () => {
     // Buscar plantas cadastradas no backend
     const fetchPlantasCadastradas = async () => {
         try {
-            const response = await fetch('http://localhost:8080/plantas'); // Endpoint do backend
+            const response = await fetch('http://localhost:8080/arranjos'); // Endpoint do backend
             const data = await response.json();
             setPlantasCadastradas(data); // Atualiza com as plantas do banco
         } catch (error) {
