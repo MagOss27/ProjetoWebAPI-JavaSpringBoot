@@ -8,12 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "desidratada")
-public class Desidratada {
+@Table(name = "arranjo")
+public class Arranjo {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "nome", length = 255, nullable = true)
@@ -78,4 +78,5 @@ public class Desidratada {
     public void setImagem(String imagem) {
         this.imagem = imagem;
     }
+
 }
