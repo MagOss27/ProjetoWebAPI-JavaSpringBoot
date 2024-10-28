@@ -7,7 +7,7 @@ import planta_qua from '../assets/planta-qua.png';
 import planta_cin from '../assets/planta-cin.png';
 import Modal from '../components/Modal/Modal'; 
 
-const TelaPlantas = ({ theme, setTheme, addPedido, isLoggedIn }) => {
+const TelaPlantas = ({ theme, setTheme, addPedido }) => {
     const [showCard, setShowCard] = useState(false);
     const [quantidade, setQuantidade] = useState(1); 
     const [modalOpen, setModalOpen] = useState(false); 
@@ -19,45 +19,32 @@ const TelaPlantas = ({ theme, setTheme, addPedido, isLoggedIn }) => {
     };
 
     const handleAddToPedido = () => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
         if (!isLoggedIn) {
-            setModalTitle('Ops');
-            setModalMessage('Você não está logado. Faça login para adicionar pedidos!');
+            setModalTitle('Atenção');
+            setModalMessage('Por favor, faça login para adicionar pedidos.');
             setModalOpen(true);
-            return; 
+            return;
         }
     
         if (quantidade > 0) {
-            
-            const emailLogado = localStorage.getItem('emailLogado');
-            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || []; 
-            const usuario = usuarios.find(user => user.email === emailLogado); 
+            const novoPedido = { nome: 'Planta', quantidade };
     
-            if (usuario) {
-                
-                usuario.pedidos.push({ nome: 'Planta', quantidade });
+            const pedidosExistentes = JSON.parse(localStorage.getItem('pedidos')) || [];
+            pedidosExistentes.push(novoPedido);
+            localStorage.setItem('pedidos', JSON.stringify(pedidosExistentes));
     
-                
-                const userIndex = usuarios.findIndex(user => user.email === emailLogado);
-                usuarios[userIndex] = usuario; 
-                localStorage.setItem('usuarios', JSON.stringify(usuarios)); 
-    
-                setModalTitle('Sucesso');
-                setModalMessage(`Adicionado ${quantidade} planta(s) ao pedido!`); 
-                setModalOpen(true);
-                setQuantidade(1); 
-            } else {
-                setModalTitle('Erro');
-                setModalMessage('Usuário não encontrado no sistema.');
-                setModalOpen(true);
-            }
+            setModalTitle('Sucesso');
+            setModalMessage(`Adicionado ${quantidade} planta(s) ao pedido!`);
+            setModalOpen(true);
+            setQuantidade(1); // Redefine a quantidade
         } else {
             setModalTitle('Erro');
-            setModalMessage('Quantidade inválida. Por favor, insira um número maior que 0.'); 
+            setModalMessage('Quantidade inválida. Por favor, insira um número maior que 0.');
             setModalOpen(true);
         }
     };
-    
-    
 
     return (
         <div className='tela-plantas'>
