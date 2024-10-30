@@ -5,6 +5,7 @@ import './Usuario.css';
 import FotoUser from '../components/FotoUser/FotoUser';
 import lixo from '../assets/lixo.png'
 import img_pedido from '../assets/img-pedido.png'
+import Modal from '../components/Modal/Modal';
 
 const Usuario = ({ theme }) => {
     const [usuario, setUsuario] = useState(null);
@@ -36,12 +37,12 @@ const Usuario = ({ theme }) => {
                     setErrorMessage('Erro ao buscar dados do usuário.');
                 });
         }
-    
+
         // Carrega os pedidos do localStorage
         const pedidosSalvos = JSON.parse(localStorage.getItem('pedidos')) || [];
         setPedidos(pedidosSalvos);
     }, []);
-    
+
 
     // Função para editar os dados do usuário
     const editarUsuario = () => {
@@ -87,10 +88,10 @@ const Usuario = ({ theme }) => {
             setModalOpen(true);
             return;
         }
-    
+
         setPedidos([]); // Limpa o estado de pedidos
         localStorage.removeItem('pedidos'); // Remove os pedidos do localStorage
-    
+
         if (usuario) {
             const updatedUser = { ...usuario, pedidos: [] };
             const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
@@ -98,12 +99,12 @@ const Usuario = ({ theme }) => {
             usuarios[userIndex] = updatedUser;
             localStorage.setItem('usuarios', JSON.stringify(usuarios));
         }
-    
+
         setModalTitle('Sucesso');
         setModalMessage('Pedido finalizado com sucesso!');
         setModalOpen(true);
     };
-    
+
     const handleRemovePedido = (index) => {
         const updatedPedidos = [...pedidos];
         updatedPedidos.splice(index, 1);
@@ -180,14 +181,14 @@ const Usuario = ({ theme }) => {
                             pedidos.map((pedido, index) => (
                                 <div key={index} className='pedido-card'>
                                     <div className="pedido-imagem">
-                                    <img src={img_pedido} className='pedido-icon' />
+                                        <img src={img_pedido} className='pedido-icon' />
                                     </div>
                                     <div className='pedido-nome'>
                                         <p>{pedido.quantidade} {pedido.nome}(s)</p>
                                     </div>
                                     <div className='pedido-gap'></div>
                                     <div className='pedido-btn'>
-                                    <button onClick={() => handleRemovePedido(index)}><img src={lixo} className='lixo-icon' /></button>
+                                        <button onClick={() => handleRemovePedido(index)}><img src={lixo} className='lixo-icon' /></button>
                                     </div>
                                 </div>
                             ))
@@ -198,6 +199,12 @@ const Usuario = ({ theme }) => {
                     <button onClick={finalizarPedido} className='button-edituser-css-dois'>FINALIZAR PEDIDO</button>
                     <div>
 
+                        <Modal
+                            isOpen={modalOpen}
+                            onClose={() => setModalOpen(false)}
+                            title={modalTitle}
+                            message={modalMessage}
+                        />
                         {/* <p>Você ainda não fez nenhum pedido.</p> */}
                     </div>
                 </div>
