@@ -49,7 +49,7 @@
 
 }
 
- .logo-red-css-cad {
+.logo-red-css-cad {
     width: 24%;
     transition: 0.5s;
 }
@@ -91,7 +91,7 @@
     flex-direction: column;
 
 
-    
+
 }
 
 .cadastro-inputs p {
@@ -106,10 +106,23 @@
 
 
 .input-cadastro {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+
     width: 576px;
     height: 32px;
     margin-bottom: 3%;
+}
 
+.input-error {
+    border-color: red;
+    color: red;
+}
+
+.input-error::placeholder {
+    color: red;
+    /* Cor do placeholder em caso de erro */
 }
 
 .cadastro-button {
@@ -123,6 +136,7 @@
 
 
 }
+
 .btn-cadastro {
     border: none;
     width: 432px;
@@ -144,6 +158,7 @@
     box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
 
 }
+
 .btn-cadastro:hover {
     border: none;
     width: 432px;
@@ -166,20 +181,12 @@
 
 }
 
-.cad-btn{
+.cad-btn {
     font-size: 18px;
     font-family: "Fredoka", sans-serif;
     font-weight: 600;
     color: var(--cor-1);
     text-shadow: 2px 2px 4px #ffffff;
     transition: 0.5s;
-    text-decoration: none; 
+    text-decoration: none;
 }
-
-
-
-
-
-
-
-

@@ -6,13 +6,41 @@ import light_logo_red from '../assets/logo-redonda-light.png';
 import dark_logo_red from '../assets/logo-redonda-dark.png';
 
 const Login = ({ theme }) => {
-    const [email, setEmail] = useState(''); // Estado para armazenar o email
-    const [senha, setSenha] = useState(''); // Estado para armazenar a senha
-    const [erro, setErro] = useState(''); // Estado para armazenar erros
-    const navigate = useNavigate(); // Hook para redirecionamento
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [erroEmail, setErroEmail] = useState('');
+    const [erroSenha, setErroSenha] = useState('');
+    const [erroLogin, setErroLogin] = useState(false);
+    const navigate = useNavigate();
 
+    const validarEmail = (email) => {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return re.test(String(email).toLowerCase());
+    };
     const handleLogin = async (e) => {
         e.preventDefault(); // Evita o reload da página
+        let hasError = false;
+
+        // Verificação se o campo e-mail está vazio ou inválido
+        if (email.trim() === '') {
+            setErroEmail('E-mail não pode ser vazio.');
+            hasError = true;
+        } else if (!validarEmail(email)) {
+            setErroEmail('E-mail inválido.');
+            hasError = true;
+        } else {
+            setErroEmail('');
+        }
+
+        // Verificação se o campo senha está vazio
+        if (senha.trim() === '') {
+            setErroSenha('Senha não pode ser vazia.');
+            hasError = true;
+        } else {
+            setErroSenha('');
+        }
+
+        if (hasError) return;
 
         try {
             const response = await axios.post('http://localhost:8080/clientes/login', {
@@ -50,24 +78,30 @@ const Login = ({ theme }) => {
 
                 <div className='login-container-inputs'>
                     <div className='login-inputs'>
-                        <p>E-MAIL</p>
+                    <p>E-MAIL{erroLogin && <span className='login-error-message'> * Email ou senha incorretos!</span>}</p>
                         <input
                             type='text'
-                            className='input-login'
+                            className={`input-login ${erroEmail ? 'input-error' : ''}`}
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)} // Captura o valor do email
+                            onChange={(e) => {
+                                setErroLogin(false);
+                                setEmail(e.target.value);
+                            }}
+                            placeholder={erroEmail || 'Digite seu e-mail'}
                         />
                         <p>SENHA</p>
                         <input
                             type='password'
-                            className='input-login'
+                            className={`input-login ${erroSenha ? 'input-error' : ''}`}
                             value={senha}
-                            onChange={(e) => setSenha(e.target.value)} // Captura o valor da senha
+                            onChange={(e) => {
+                                setErroLogin(false);
+                                setSenha(e.target.value);
+                            }}
+                            placeholder={erroSenha || 'Digite sua senha'}
                         />
                     </div>
                 </div>
-
-                {erro && <p className="error-message">{erro}</p>} {/* Exibe a mensagem de erro */}
 
                 <div className='login-button'>
                     <button className='btn-login' onClick={handleLogin}>ENTRAR</button> {/* Evento de clique */}

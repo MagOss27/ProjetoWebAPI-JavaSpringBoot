@@ -11,15 +11,20 @@ const Adm = ({ theme, setTheme }) => {
     const [descricao, setDescricao] = useState('');
     const [tamanho, setTamanho] = useState('');
     const [imagem, setImagem] = useState(null);
-    const [searchTerm, setSearchTerm] = useState(''); 
-    const [produtoEncontrado, setProdutoEncontrado] = useState(null); 
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchNome, setSearchNome] = useState('');
+    const [searchCategoria, setSearchCategoria] = useState('');
+    const [searchDescricao, setSearchDescricao] = useState('');
+    const [searchTamanho, setSearchTamanho] = useState('');
+    const [produtoEncontrado, setProdutoEncontrado] = useState(null);
 
     const handleCadastrar = async () => {
         if (!nome || !categoria) {
             alert('Por favor, preencha todos os campos.');
             return;
         }
-    
+
         const novoProduto = {
             nome,
             categoria,
@@ -27,7 +32,7 @@ const Adm = ({ theme, setTheme }) => {
             tamanho,
             imagem: imagem ? URL.createObjectURL(imagem) : prod_foto,
         };
-    
+
         try {
             const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}`, {
                 method: 'POST',
@@ -36,11 +41,11 @@ const Adm = ({ theme, setTheme }) => {
                 },
                 body: JSON.stringify(novoProduto),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Erro ao cadastrar o produto');
             }
-    
+
             alert('Produto cadastrado com sucesso!');
             setNome('');
             setCategoria('');
@@ -58,35 +63,38 @@ const Adm = ({ theme, setTheme }) => {
             alert('Por favor, insira o nome do produto.');
             return;
         }
-   
+
         try {
-            const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}?nome=${encodeURIComponent(searchTerm)}`);
+            // Fazendo requisição para buscar o produto pelo nome
+            const response = await fetch(`http://localhost:8080/plantas?nome=${encodeURIComponent(searchTerm)}`);
             const produtosLocalizados = await response.json();
-   
+
             if (!response.ok || !produtosLocalizados || produtosLocalizados.length === 0) {
                 alert('Produto não encontrado.');
                 return;
             }
-   
+
+            // Filtrando produto específico pelo nome de busca
             const produto = produtosLocalizados.find(p => p.nome.toLowerCase() === searchTerm.toLowerCase());
-   
+
             if (!produto) {
                 alert('Produto não encontrado.');
                 return;
             }
-   
+
+            // Preenchendo os inputs com as informações do produto encontrado
             setProdutoEncontrado(produto);
-            setNome(produto.nome);
-            setCategoria(produto.categoria);
-            setDescricao(produto.descricao);
-            setTamanho(produto.tamanho);
-            setImagem(null);
-   
+            setSearchNome(produto.nome);
+            setSearchCategoria(produto.categoria);
+            setSearchDescricao(produto.descricao);
+            setSearchTamanho(produto.tamanho);
+
         } catch (error) {
             console.error('Erro ao buscar o produto:', error);
             alert('Erro ao buscar o produto.');
         }
     };
+
 
     const handleEdit = async () => {
         if (!produtoEncontrado) {
@@ -127,29 +135,31 @@ const Adm = ({ theme, setTheme }) => {
             alert('Nenhum produto selecionado para exclusão.');
             return;
         }
-   
+
         try {
-            const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}/${produtoEncontrado.id}`, {
+            // Requisição DELETE para o backend
+            const response = await fetch(`http://localhost:8080/plantas/${produtoEncontrado.id}`, {
                 method: 'DELETE',
             });
-   
+
             if (!response.ok) {
                 throw new Error('Erro ao excluir o produto.');
             }
-   
+
             alert('Produto excluído com sucesso!');
-   
-            setNome('');
-            setCategoria('');
-            setDescricao('');
-            setTamanho('');
-            setImagem(null);
-            setProdutoEncontrado(null);
+
+            // Limpando os campos após a exclusão
+            setSearchTerm('');
+            setSearchNome('');
+            setSearchCategoria('');
+            setSearchDescricao('');
+            setSearchTamanho('');
         } catch (error) {
             console.error('Erro ao excluir o produto:', error);
             alert('Erro ao excluir o produto.');
         }
     };
+
 
     return (
         <div className='adm'>
@@ -217,11 +227,11 @@ const Adm = ({ theme, setTheme }) => {
 
                         <div className='right-container'>
                             <div className='search-box-prod'>
-                                <input 
-                                    type="text" 
-                                    placeholder='Procurar' 
-                                    value={searchTerm} 
-                                    onChange={(e) => setSearchTerm(e.target.value)} 
+                                <input
+                                    type="text"
+                                    placeholder='Procurar'
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                                 <button onClick={handleSearch}>
                                     <img src={theme === 'dark' ? search_icon_dark : search_icon_light} alt='' />
@@ -229,19 +239,19 @@ const Adm = ({ theme, setTheme }) => {
                             </div>
 
                             <p>NOME</p>
-                            <input 
-                                type='text' 
-                                className='input-adm-css' 
-                                value={nome} 
-                                onChange={(e) => setNome(e.target.value)} 
-                                placeholder='Digite o nome do Produto.' 
+                            <input
+                                type='text'
+                                className='input-adm-css'
+                                value={searchNome}
+                                onChange={(e) => setSearchNome(e.target.value)}
+                                placeholder='Digite o nome do Produto.'
                             />
 
                             <p>CATEGORIA</p>
                             <select
                                 className='input-adm-css'
-                                value={categoria}
-                                onChange={(e) => setCategoria(e.target.value)}
+                                value={searchCategoria}
+                                onChange={(e) => setSearchCategoria(e.target.value)}
                             >
                                 <option value='' disabled>Selecione a categoria do Produto</option>
                                 <option value='Arranjos'>Arranjos</option>
@@ -251,21 +261,21 @@ const Adm = ({ theme, setTheme }) => {
                             </select>
 
                             <p>DESCRIÇÃO</p>
-                            <input 
-                                type='text' 
-                                className='input-adm-css' 
-                                value={descricao} 
-                                onChange={(e) => setDescricao(e.target.value)} 
-                                placeholder='Digite a descrição do Produto.' 
+                            <input
+                                type='text'
+                                className='input-adm-css'
+                                value={searchDescricao}
+                                onChange={(e) => setSearchDescricao(e.target.value)}
+                                placeholder='Digite a descrição do Produto.'
                             />
 
                             <p>TAMANHO</p>
-                            <input 
-                                type='text' 
-                                className='input-adm-css' 
-                                value={tamanho} 
-                                onChange={(e) => setTamanho(e.target.value)} 
-                                placeholder='Digite o tamanho do Produto.' 
+                            <input
+                                type='text'
+                                className='input-adm-css'
+                                value={searchTamanho}
+                                onChange={(e) => setSearchTamanho(e.target.value)}
+                                placeholder='Digite o tamanho do Produto.'
                             />
 
                             <div className='btn'>

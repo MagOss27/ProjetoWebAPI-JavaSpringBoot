@@ -17,8 +17,7 @@ const Usuario = ({ theme }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
     const [modalMessage, setModalMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState(''); // Estado para mensagens de erro
-    const [successMessage, setSuccessMessage] = useState(''); // Estado para mensagens de sucesso
+    const [shouldRedirect, setShouldRedirect] = useState(false); // Novo estado para controlar o redirecionamento
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,9 +31,10 @@ const Usuario = ({ theme }) => {
                     setEmail(email);
                     setSenha(senha);
                 })
-                .catch((error) => {
-                    console.error('Erro ao buscar dados do usuário:', error);
-                    setErrorMessage('Erro ao buscar dados do usuário.');
+                .catch(() => {
+                    setModalTitle('Erro');
+                    setModalMessage('Erro ao buscar dados do usuário.');
+                    setModalOpen(true);
                 });
         }
 
@@ -51,13 +51,14 @@ const Usuario = ({ theme }) => {
             const usuarioAtualizado = { nome, email, senha };
             axios.put(`http://localhost:8080/clientes/${userID}`, usuarioAtualizado)
                 .then(() => {
-                    setSuccessMessage('Usuário atualizado com sucesso!');
-                    setErrorMessage(''); // Limpa mensagem de erro
+                    setModalTitle('Sucesso');
+                    setModalMessage('Usuário editado com sucesso!');
+                    setModalOpen(true);
                 })
-                .catch((error) => {
-                    console.error('Erro ao atualizar dados do usuário:', error);
-                    setErrorMessage('Erro ao atualizar dados do usuário.');
-                    setSuccessMessage(''); // Limpa mensagem de sucesso
+                .catch(() => {
+                    setModalTitle('Erro');
+                    setModalMessage('Erro ao atualizar dados do usuário.');
+                    setModalOpen(true);
                 });
         }
     };
@@ -70,13 +71,15 @@ const Usuario = ({ theme }) => {
                 .then(() => {
                     localStorage.removeItem('userID'); // Remove ID do usuário do localStorage
                     localStorage.removeItem('isLoggedIn'); // Remove o estado de login
-                    setSuccessMessage('Usuário excluído com sucesso!');
-                    alert("Sua conta foi Excluída com Sucesso!")
-                    navigate('/'); // Redireciona para a tela Home
+                    setModalTitle('Sucesso');
+                    setModalMessage('Usuário excluído com sucesso!');
+                    setModalOpen(true);
+                    setShouldRedirect(true); // Sinaliza que deve redirecionar após o fechamento do modal
                 })
-                .catch((error) => {
-                    console.error('Erro ao excluir usuário:', error);
-                    setErrorMessage('Erro ao excluir usuário.');
+                .catch(() => {
+                    setModalTitle('Erro');
+                    setModalMessage('Erro ao excluir usuário.');
+                    setModalOpen(true);
                 });
         }
     };
@@ -103,6 +106,14 @@ const Usuario = ({ theme }) => {
         setModalTitle('Sucesso');
         setModalMessage('Pedido finalizado com sucesso!');
         setModalOpen(true);
+    };
+
+    // Função chamada quando o modal é fechado
+    const handleCloseModal = () => {
+        setModalOpen(false);
+        if (shouldRedirect) {
+            navigate('/'); // Redireciona para a página home após fechar o modal
+        }
     };
 
     const handleRemovePedido = (index) => {
@@ -169,8 +180,6 @@ const Usuario = ({ theme }) => {
                             EXCLUIR USER
                         </button>
                     </div>
-                    {successMessage && <p className="success-message">{successMessage}</p>}
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </div>
                 <div className='p-direita'>
                     <p className='titulo-pedidos'>MEUS PEDIDOS</p>
@@ -198,14 +207,12 @@ const Usuario = ({ theme }) => {
                     </div>
                     <button onClick={finalizarPedido} className='button-edituser-css-dois'>FINALIZAR PEDIDO</button>
                     <div>
-
                         <Modal
                             isOpen={modalOpen}
-                            onClose={() => setModalOpen(false)}
+                            onClose={handleCloseModal} // Fecha o modal e, se necessário, redireciona
                             title={modalTitle}
                             message={modalMessage}
                         />
-                        {/* <p>Você ainda não fez nenhum pedido.</p> */}
                     </div>
                 </div>
             </div>

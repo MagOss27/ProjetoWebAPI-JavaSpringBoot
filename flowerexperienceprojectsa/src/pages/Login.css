@@ -45,10 +45,9 @@
     justify-content: center;
     align-items: center;
     transition: 0.5s;
-
 }
 
- .logo-red-css {
+.logo-red-css {
     width: 30%;
     transition: 0.5s;
 }
@@ -59,7 +58,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .login-text p {
@@ -75,10 +73,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-
 }
-
 
 .login-inputs {
     width: 90%;
@@ -86,8 +81,6 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-
-    
 }
 
 .login-inputs p {
@@ -99,13 +92,28 @@
     transition: 0.5s;
 }
 
-
-
 .input-login {
     width: 432px;
     height: 30px;
+    padding: 10px;
     margin-top: 1%;
     margin-bottom: 4%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.input-error {
+    border-color: red;
+}
+
+.login-error-message {
+    color: red;
+    font-size: 14px;
+    margin: 10px;
+}
+
+.input-error::placeholder {
+    color: red;
 }
 
 .login-button {
@@ -115,9 +123,8 @@
     align-items: center;
     flex-direction: column;
     padding: 3%;
-
-
 }
+
 .btn-login {
     border: none;
     width: 432px;
@@ -128,40 +135,16 @@
     color: var(--cor-2);
     font-size: 18px;
     font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
     cursor: pointer;
-    -webkit-box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
     box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
-
 }
+
 .btn-login:hover {
-    border: none;
-    width: 432px;
-    height: 30px;
-    margin: 20px;
     background-color: white;
-    border-radius: 5px;
     color: var(--cor-1);
-    font-size: 18px;
-    font-family: "Fredoka", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
-    cursor: pointer;
-    -webkit-box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
-    box-shadow: -1px 23px 32px -15px rgba(0, 0, 0, 0.75);
-
 }
 
-.cad-btn{
+.cad-btn {
     font-size: 18px;
     font-family: "Fredoka", sans-serif;
     font-weight: 600;
@@ -171,10 +154,7 @@
     text-decoration: none; 
 }
 
-
-
-
-
-
-
-
+/* Removed Unused Classes:
+- Redundant transition properties in `.btn-login:hover` and `.login-logo`
+- Repetitive width, height, and margin settings in `.btn-login:hover` (simplified)
+*/
