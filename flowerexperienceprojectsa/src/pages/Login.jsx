@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
@@ -11,36 +11,61 @@ const Login = ({ theme }) => {
     const [erroEmail, setErroEmail] = useState('');
     const [erroSenha, setErroSenha] = useState('');
     const [erroLogin, setErroLogin] = useState(false);
+    const [touched, setTouched] = useState({
+        email: false,
+        senha: false,
+    });
     const navigate = useNavigate();
 
     const validarEmail = (email) => {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         return re.test(String(email).toLowerCase());
     };
-    const handleLogin = async (e) => {
-        e.preventDefault(); // Evita o reload da página
+
+    // useEffect para validar os campos
+    useEffect(() => {
         let hasError = false;
 
-        // Verificação se o campo e-mail está vazio ou inválido
-        if (email.trim() === '') {
-            setErroEmail('E-mail não pode ser vazio.');
-            hasError = true;
-        } else if (!validarEmail(email)) {
-            setErroEmail('E-mail inválido.');
-            hasError = true;
-        } else {
-            setErroEmail('');
+        // Validação de e-mail
+        if (touched.email) {
+            if (email.trim() === '') {
+                setErroEmail('E-mail não pode ser vazio.');
+                hasError = true;
+            } else if (!validarEmail(email)) {
+                setErroEmail('E-mail inválido.');
+                hasError = true;
+            } else {
+                setErroEmail('');
+            }
         }
 
-        // Verificação se o campo senha está vazio
-        if (senha.trim() === '') {
-            setErroSenha('Senha não pode ser vazia.');
-            hasError = true;
-        } else {
-            setErroSenha('');
+        // Validação de senha
+        if (touched.senha) {
+            if (senha.trim() === '') {
+                setErroSenha('Senha não pode ser vazia.');
+                hasError = true;
+            } else if (senha.length < 8) { // Verifica se a senha tem pelo menos 8 dígitos
+                setErroSenha('A senha deve ter pelo menos 8 dígitos.');
+                hasError = true;
+            } else {
+                setErroSenha('');
+            }
         }
 
-        if (hasError) return;
+        // Se não houver erro, limpa a mensagem de erro de login
+        if (!hasError) {
+            setErroLogin(false);
+        }
+    }, [email, senha, touched]); // Dependências do useEffect
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setTouched({ email: true, senha: true }); // Marca os campos como tocados
+
+        // // Validação antes de prosseguir
+        // if (erroEmail || erroSenha || senha.length < 8) {
+        //     return; // Não prosseguir se houver erro
+        // }
 
         try {
             const response = await axios.post('http://localhost:8080/clientes/login', {
@@ -48,20 +73,17 @@ const Login = ({ theme }) => {
                 senha: senha,
             });
 
-            // Verifica a resposta do backend
             if (response.data === "admin") {
-                alert('Login como administrador realizado com sucesso!');
-                localStorage.setItem('isAdmin', 'true'); // Define o administrador no localStorage
-                localStorage.setItem('isLoggedIn', 'true'); // Define o estado de login
-                navigate('/Adm'); // Redireciona para a página do admin
+                localStorage.setItem('isAdmin', 'true');
+                localStorage.setItem('isLoggedIn', 'true');
+                navigate('/Adm');
             } else if (response.status === 200) {
-                localStorage.setItem('isLoggedIn', 'true'); // Define o estado de login
-                alert('Login realizado com sucesso!');
-                navigate('/Usuario'); // Redireciona para a página do usuário
+                localStorage.setItem('isLoggedIn', 'true');
+                navigate('/Usuario');
             }
         } catch (err) {
             console.error('Erro ao realizar login:', err);
-            setErro('Email ou senha incorretos!'); // Exibe mensagem de erro em caso de falha
+            setErroLogin(true); // Define erro de login se a chamada falhar
         }
     };
 
@@ -78,15 +100,16 @@ const Login = ({ theme }) => {
 
                 <div className='login-container-inputs'>
                     <div className='login-inputs'>
-                    <p>E-MAIL{erroLogin && <span className='login-error-message'> * Email ou senha incorretos!</span>}</p>
+                        <p>E-MAIL{erroLogin && <span className='login-error-message'> * Email ou senha incorretos!</span>}</p>
                         <input
                             type='text'
                             className={`input-login ${erroEmail ? 'input-error' : ''}`}
                             value={email}
                             onChange={(e) => {
-                                setErroLogin(false);
                                 setEmail(e.target.value);
+                                setErroLogin(false); // Reseta erro de login ao mudar o e-mail
                             }}
+                            onBlur={() => setTouched({ ...touched, email: true })}
                             placeholder={erroEmail || 'Digite seu e-mail'}
                         />
                         <p>SENHA</p>
@@ -95,22 +118,23 @@ const Login = ({ theme }) => {
                             className={`input-login ${erroSenha ? 'input-error' : ''}`}
                             value={senha}
                             onChange={(e) => {
-                                setErroLogin(false);
                                 setSenha(e.target.value);
+                                setErroLogin(false); // Reseta erro de login ao mudar a senha
                             }}
+                            onBlur={() => setTouched({ ...touched, senha: true })}
                             placeholder={erroSenha || 'Digite sua senha'}
                         />
                     </div>
                 </div>
 
                 <div className='login-button'>
-                    <button className='btn-login' onClick={handleLogin}>ENTRAR</button> {/* Evento de clique */}
+                    <button className='btn-login' onClick={handleLogin}>ENTRAR</button>
                     <p>Não possui uma conta?</p>
                     <Link to='/cadastro' className='cad-btn'>Cadastre-se</Link>
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default Login;
