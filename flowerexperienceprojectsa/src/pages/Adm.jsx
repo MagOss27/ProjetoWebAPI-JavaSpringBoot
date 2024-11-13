@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Adm.css';
 import prod_foto from '../assets/prod-foto.png';
 import search_icon_light from '../assets/search_w.png';
@@ -18,6 +18,17 @@ const Adm = ({ theme, setTheme }) => {
     const [searchDescricao, setSearchDescricao] = useState('');
     const [searchTamanho, setSearchTamanho] = useState('');
     const [produtoEncontrado, setProdutoEncontrado] = useState(null);
+
+    const fileInput = useRef(null);
+
+    const limparCampos = () => {
+        setNome('');
+        setCategoria('');
+        setDescricao('');
+        setTamanho('');
+        setImagem(null);
+        fileInput.current.value = ''; // Limpa o input de imagem
+      };
 
     const handleCadastrar = async () => {
         if (!nome || !categoria) {
@@ -47,11 +58,7 @@ const Adm = ({ theme, setTheme }) => {
             }
 
             alert('Produto cadastrado com sucesso!');
-            setNome('');
-            setCategoria('');
-            setDescricao('');
-            setTamanho('');
-            setImagem(null);
+            limparCampos();
         } catch (error) {
             console.error(error);
             alert('Erro ao cadastrar o produto.');
@@ -220,6 +227,7 @@ const Adm = ({ theme, setTheme }) => {
                             <input
                                 type='file'
                                 className='input-adm-css'
+                                ref={fileInput}
                                 onChange={(e) => setImagem(e.target.files[0])}
                             />
 
