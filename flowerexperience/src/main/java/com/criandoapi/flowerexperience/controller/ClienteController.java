@@ -60,8 +60,8 @@ public class ClienteController {
     public ResponseEntity<?> loginCliente(@RequestBody Cliente cliente) {
 
         // E-mail e senha do administrador
-        String adminEmail = "magnus";
-        String adminSenha = "123";
+        String adminEmail = "administrador@gmail.com";
+        String adminSenha = "12345678";
 
         // Verifica se o login é do administrador
         if (cliente.getEmail().equals(adminEmail) && cliente.getSenha().equals(adminSenha)) {

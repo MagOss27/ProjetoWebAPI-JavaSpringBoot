@@ -28,7 +28,17 @@ const Adm = ({ theme, setTheme }) => {
         setTamanho('');
         setImagem(null);
         fileInput.current.value = ''; // Limpa o input de imagem
-      };
+    };
+
+    const limparCamposEdicao = () => {
+        setSearchNome('');
+        setSearchCategoria('');
+        setSearchDescricao('');
+        setSearchTamanho('');
+        setImagem(null);
+        setProdutoEncontrado(null);
+        fileInput.current.value = '';
+    };
 
     const handleCadastrar = async () => {
         if (!nome || !categoria) {
@@ -98,11 +108,10 @@ const Adm = ({ theme, setTheme }) => {
         setSearchCategoria(produtoEncontrado.categoria);
         setSearchDescricao(produtoEncontrado.descricao);
         setSearchTamanho(produtoEncontrado.tamanho);
+        setImagem(null); // Limpar o campo de imagem
 
         setSearchTerm('');
     };
-    
-
 
     const handleEdit = async () => {
         if (!produtoEncontrado) {
@@ -132,12 +141,12 @@ const Adm = ({ theme, setTheme }) => {
             }
     
             alert('Produto editado com sucesso!');
+            limparCamposEdicao();
         } catch (error) {
             console.error('Erro ao editar o produto:', error);
             alert('Erro ao editar o produto.');
         }
     };
-    
 
     const handleDelete = async () => {
         if (!produtoEncontrado) {
@@ -146,8 +155,7 @@ const Adm = ({ theme, setTheme }) => {
         }
 
         try {
-            // Requisição DELETE para o backend
-            const response = await fetch(`http://localhost:8080/plantas/${produtoEncontrado.id}`, {
+            const response = await fetch(`http://localhost:8080/${searchCategoria.toLowerCase()}/${produtoEncontrado.id}`, {
                 method: 'DELETE',
             });
 
@@ -156,19 +164,12 @@ const Adm = ({ theme, setTheme }) => {
             }
 
             alert('Produto excluído com sucesso!');
-
-            // Limpando os campos após a exclusão
-            setSearchTerm('');
-            setSearchNome('');
-            setSearchCategoria('');
-            setSearchDescricao('');
-            setSearchTamanho('');
+            limparCamposEdicao();
         } catch (error) {
             console.error('Erro ao excluir o produto:', error);
             alert('Erro ao excluir o produto.');
         }
     };
-
 
     return (
         <div className='adm'>
