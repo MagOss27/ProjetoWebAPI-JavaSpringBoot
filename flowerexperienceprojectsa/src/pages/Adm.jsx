@@ -45,7 +45,30 @@ const Adm = ({ theme, setTheme }) => {
             alert('Por favor, preencha todos os campos.');
             return;
         }
-
+    
+        // Verificar se o produto com o mesmo nome já existe
+        const categorias = ['arranjos', 'desidratadas', 'orquideas', 'plantas'];
+        let produtoExistente = false;
+    
+        for (const categoriaItem of categorias) {
+            try {
+                const response = await fetch(`http://localhost:8080/${categoriaItem}?nome=${encodeURIComponent(nome)}`);
+                const produtosLocalizados = await response.json();
+    
+                if (produtosLocalizados && produtosLocalizados.some(p => p.nome.toLowerCase() === nome.toLowerCase())) {
+                    produtoExistente = true;
+                    break; // Se encontrar um produto com o mesmo nome, interrompe a busca
+                }
+            } catch (error) {
+                console.error(`Erro ao verificar a categoria ${categoriaItem}:`, error);
+            }
+        }
+    
+        if (produtoExistente) {
+            alert('Já existe um produto com esse nome. Tente outro nome.');
+            return;
+        }
+    
         const novoProduto = {
             nome,
             categoria,
@@ -53,7 +76,7 @@ const Adm = ({ theme, setTheme }) => {
             tamanho,
             imagem: imagem ? URL.createObjectURL(imagem) : prod_foto,
         };
-
+    
         try {
             const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}`, {
                 method: 'POST',
@@ -62,11 +85,11 @@ const Adm = ({ theme, setTheme }) => {
                 },
                 body: JSON.stringify(novoProduto),
             });
-
+    
             if (!response.ok) {
                 throw new Error('Erro ao cadastrar o produto');
             }
-
+    
             alert('Produto cadastrado com sucesso!');
             limparCampos();
         } catch (error) {
