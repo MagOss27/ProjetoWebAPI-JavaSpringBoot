@@ -22,13 +22,13 @@ import com.criandoapi.flowerexperience.service.OrquideaService;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/orquideas")
-public class OrquideaController {  // Nome corrigido para refletir o papel de controlador
+public class OrquideaController { // Nome corrigido para refletir o papel de controlador
 
     @Autowired
     private IOrquidea dao;
 
     @Autowired
-    private OrquideaService service;  // Mantido apenas a injeção de OrquideaService para evitar loop
+    private OrquideaService service; // Mantido apenas a injeção de OrquideaService para evitar loop
 
     @GetMapping
     public ResponseEntity<List<Orquidea>> listaOrquidea() {
@@ -50,6 +50,12 @@ public class OrquideaController {  // Nome corrigido para refletir o papel de co
     }
 
     @DeleteMapping("/{id}")
+    public ResponseEntity<?> excluirOrquidea(@PathVariable Integer id) {
+        dao.deleteById(id);
+        return ResponseEntity.status(204).build(); // Retorna 204 No Content após exclusão
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<?> buscarIDOrquidea(@PathVariable Integer id) throws IllegalAccessException {
         Optional<Orquidea> orquidea = service.buscarIDOrquidea(id);
         if (orquidea.isPresent()) {

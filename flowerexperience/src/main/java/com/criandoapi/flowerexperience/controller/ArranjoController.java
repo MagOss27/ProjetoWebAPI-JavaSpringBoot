@@ -49,7 +49,13 @@ public class ArranjoController {
         return ResponseEntity.status(200).body(arranjoNovo);
     }
 
-    @DeleteMapping("/{id}")
+      @DeleteMapping("/{id}")
+      public ResponseEntity<?> excluirArranjo(@PathVariable Integer id) {
+          dao.deleteById(id);
+          return ResponseEntity.status(204).build(); // Retorna 204 No Content após exclusão
+      }
+
+    @GetMapping("/{id}")
     public ResponseEntity<?> buscarIDArranjo(@PathVariable Integer id) throws IllegalAccessException {
         Optional<Arranjo> arranjo = service.buscarIDArranjo(id);
         if (arranjo.isPresent()) {
@@ -59,3 +65,4 @@ public class ArranjoController {
         }
     }
 }
+
