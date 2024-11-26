@@ -1,88 +1,92 @@
-# ProjetoWebAPI_JavaSpringBoot
+# Projeto Web API - Java Spring Boot
 
-Banco de Dados (MySQL)
+Este projeto é uma API web construída com Java Spring Boot, que integra com um banco de dados MySQL. A aplicação permite gerenciar informações sobre plantas, desidratadas, arranjos e orquídeas, bem como clientes que fazem compras de flores.
 
-CREATE DATABASE flowerexperience;
-use flowerexperience;
+## Banco de Dados (MySQL)
 
-CREATE TABLE cliente (
-    id INT AUTO_INCREMENT PRIMARY KEY, 
-    nome_completo VARCHAR(200) NOT NULL, 
+1. Criação do Banco de Dados
+
+   ```sql
+   CREATE DATABASE flowerexperience;
+   USE flowerexperience;
+
+2. Criação das Tabelas:
+
+   ```sql
+   CREATE TABLE cliente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_completo VARCHAR(200) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     senha TEXT NOT NULL
-);
+   );
 
-CREATE TABLE planta (
-  id INT AUTO_INCREMENT PRIMARY KEY,    
-  nome VARCHAR(100) NOT NULL,          
-  categoria VARCHAR(100) NOT NULL,    
-  descricao TEXT NOT NULL,           
-  tamanho VARCHAR(50) NOT NULL,         
-  imagem VARCHAR(255) NOT NULL 
-);
+   CREATE TABLE planta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    descricao TEXT NOT NULL,
+    tamanho VARCHAR(50) NOT NULL,
+    imagem VARCHAR(255) NOT NULL
+   );
 
-CREATE TABLE desidratada (
-  id INT AUTO_INCREMENT PRIMARY KEY,    
-  nome VARCHAR(100) NOT NULL,          
-  categoria VARCHAR(100) NOT NULL,    
-  descricao TEXT NOT NULL,           
-  tamanho VARCHAR(50) NOT NULL,         
-  imagem VARCHAR(255) NOT NULL 
-);
+   CREATE TABLE desidratada (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    descricao TEXT NOT NULL,
+    tamanho VARCHAR(50) NOT NULL,
+    imagem VARCHAR(255) NOT NULL
+   );
 
-CREATE TABLE arranjo (
-  id INT AUTO_INCREMENT PRIMARY KEY,    
-  nome VARCHAR(100) NOT NULL,          
-  categoria VARCHAR(100) NOT NULL,    
-  descricao TEXT NOT NULL,           
-  tamanho VARCHAR(50) NOT NULL,         
-  imagem VARCHAR(255) NOT NULL 
-);
+   CREATE TABLE arranjo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    descricao TEXT NOT NULL,
+    tamanho VARCHAR(50) NOT NULL,
+    imagem VARCHAR(255) NOT NULL
+   );
 
-CREATE TABLE orquidea (
-  id INT AUTO_INCREMENT PRIMARY KEY,    
-  nome VARCHAR(100) NOT NULL,          
-  categoria VARCHAR(100) NOT NULL,    
-  descricao TEXT NOT NULL,           
-  tamanho VARCHAR(50) NOT NULL,         
-  imagem VARCHAR(255) NOT NULL 
-);
+   CREATE TABLE orquidea (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    descricao TEXT NOT NULL,
+    tamanho VARCHAR(50) NOT NULL,
+    imagem VARCHAR(255) NOT NULL
+   );
 
+3. Consultas para Visualizar os Dados:
 
-select * from planta;
-select * from desidratada;
-select * from arranjo;
-select * from orquidea;
+   ```sql
+   SELECT * FROM planta;
+   SELECT * FROM desidratada;
+   SELECT * FROM arranjo;
+   SELECT * FROM orquidea;
+   SELECT * FROM cliente;
 
-select * from cliente;
+## Backend: (flowerexperience)
 
-Backend: (flowerexperience)
-1. Instalação das extensões:
-Instale as seguintes extensões para o seu ambiente de desenvolvimento:
+Instalação das Extensões
 
+Certifique-se de instalar as seguintes extensões para o ambiente de desenvolvimento:
+    
 - Extension Pack for Java
 - MySQL
 - Spring Boot Extension Pack
 
-2. Configuração do banco de dados:
-Após concluir a criação do banco de dados, é necessário configurar o backend adequadamente para garantir seu funcionamento contínuo.
+## Frontend: (flowerexperiencesa)
 
-Frontend: (flowerexperiencesa)
-No frontend, execute os seguintes passos para configurar as dependências:
+Para instalar as dependências, execute o seguinte comando:
 
-1. Instale as dependências do projeto com os comandos:
+    npm install
 
-npm install ou npm i 
+Instale o Axios com o seguinte comando:
 
-2. Instale o Axios com o seguinte comando:
+    npm install axios
+    
+Rodar a Aplicação:
 
-npm install axios
+Para iniciar o servidor de desenvolvimento, execute o seguinte comando:
 
-3. Rodar a aplicação:
-Por fim, para iniciar o servidor de desenvolvimento, execute:
-
-npm run dev
-
-
-*OBS: Qualquer coisa bota no chat
-
+    npm run dev
