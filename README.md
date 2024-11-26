@@ -1,4 +1,4 @@
-# Projeto Web API - Java Spring Boot
+# Projeto Web API - Java Spring Boot 🌹
 
 Este projeto é uma API web construída com Java Spring Boot, que integra com um banco de dados MySQL. A aplicação permite gerenciar informações sobre plantas, desidratadas, arranjos e orquídeas, bem como clientes que fazem compras de flores.
 
