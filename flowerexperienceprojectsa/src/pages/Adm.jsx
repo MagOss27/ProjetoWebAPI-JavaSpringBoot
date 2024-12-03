@@ -3,6 +3,7 @@ import './Adm.css';
 import prod_foto from '../assets/prod-foto.png';
 import search_icon_light from '../assets/search_w.png';
 import search_icon_dark from '../assets/search_b.png';
+import Modal from '../components/Modal/Modal';
 
 const Adm = ({ theme, setTheme }) => {
     const [isRegistering, setIsRegistering] = useState(false);
@@ -18,6 +19,10 @@ const Adm = ({ theme, setTheme }) => {
     const [searchDescricao, setSearchDescricao] = useState('');
     const [searchTamanho, setSearchTamanho] = useState('');
     const [produtoEncontrado, setProdutoEncontrado] = useState(null);
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalTitle, setModalTitle] = useState('');
+    const [modalMessage, setModalMessage] = useState('');
 
     const fileInput = useRef(null);
 
@@ -42,19 +47,20 @@ const Adm = ({ theme, setTheme }) => {
 
     const handleCadastrar = async () => {
         if (!nome || !categoria) {
-            alert('Por favor, preencha todos os campos.');
-            return;
+            setModalTitle('Erro');
+            setModalMessage('Por favor, preencha todos os campos.');
+            setModalOpen(true);
         }
-    
+
         // Verificar se o produto com o mesmo nome já existe
         const categorias = ['arranjos', 'desidratadas', 'orquideas', 'plantas'];
         let produtoExistente = false;
-    
+
         for (const categoriaItem of categorias) {
             try {
                 const response = await fetch(`http://localhost:8080/${categoriaItem}?nome=${encodeURIComponent(nome)}`);
                 const produtosLocalizados = await response.json();
-    
+
                 if (produtosLocalizados && produtosLocalizados.some(p => p.nome.toLowerCase() === nome.toLowerCase())) {
                     produtoExistente = true;
                     break; // Se encontrar um produto com o mesmo nome, interrompe a busca
@@ -63,12 +69,13 @@ const Adm = ({ theme, setTheme }) => {
                 console.error(`Erro ao verificar a categoria ${categoriaItem}:`, error);
             }
         }
-    
+
         if (produtoExistente) {
-            alert('Já existe um produto com esse nome. Tente outro nome.');
-            return;
+            setModalTitle('Erro');
+            setModalMessage('Já existe um produto com esse nome. Tente outro nome.');
+            setModalOpen(true);
         }
-    
+
         const novoProduto = {
             nome,
             categoria,
@@ -76,7 +83,7 @@ const Adm = ({ theme, setTheme }) => {
             tamanho,
             imagem: imagem ? URL.createObjectURL(imagem) : prod_foto,
         };
-    
+
         try {
             const response = await fetch(`http://localhost:8080/${categoria.toLowerCase()}`, {
                 method: 'POST',
@@ -85,33 +92,38 @@ const Adm = ({ theme, setTheme }) => {
                 },
                 body: JSON.stringify(novoProduto),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Erro ao cadastrar o produto');
             }
-    
-            alert('Produto cadastrado com sucesso!');
+
+            setModalTitle('Sucesso');
+            setModalMessage('Produto cadastrado com sucesso!');
+            setModalOpen(true);
             limparCampos();
         } catch (error) {
             console.error(error);
-            alert('Erro ao cadastrar o produto.');
+            setModalTitle('Erro');
+            setModalMessage('Erro ao cadastrar o produto.');
+            setModalOpen(true);
         }
     };
 
     const handleSearch = async () => {
         if (!searchTerm) {
-            alert('Por favor, insira o nome do produto.');
-            return;
+            setModalTitle('Erro');
+            setModalMessage('Por favor, insira o nome do produto.');
+            setModalOpen(true);
         }
-    
+
         const categorias = ['arranjos', 'desidratadas', 'orquideas', 'plantas'];
         let produtoEncontrado = null;
-    
+
         for (const categoria of categorias) {
             try {
                 const response = await fetch(`http://localhost:8080/${categoria}?nome=${encodeURIComponent(searchTerm)}`);
                 const produtosLocalizados = await response.json();
-    
+
                 if (produtosLocalizados && produtosLocalizados.length > 0) {
                     produtoEncontrado = produtosLocalizados.find(p => p.nome.toLowerCase() === searchTerm.toLowerCase());
                     if (produtoEncontrado) break; // Para a busca se encontrar o produto
@@ -120,12 +132,13 @@ const Adm = ({ theme, setTheme }) => {
                 console.error(`Erro ao buscar na categoria ${categoria}:`, error);
             }
         }
-    
+
         if (!produtoEncontrado) {
-            alert('Produto não encontrado.');
-            return;
+            setModalTitle('Erro');
+            setModalMessage('Produto não encontrado.');
+            setModalOpen(true);
         }
-    
+
         setProdutoEncontrado(produtoEncontrado);
         setSearchNome(produtoEncontrado.nome);
         setSearchCategoria(produtoEncontrado.categoria);
@@ -138,10 +151,11 @@ const Adm = ({ theme, setTheme }) => {
 
     const handleEdit = async () => {
         if (!produtoEncontrado) {
-            alert('Nenhum produto selecionado para edição.');
-            return;
+            setModalTitle('Erro');
+            setModalMessage('Nenhum produto selecionado para edição.');
+            setModalOpen(true);
         }
-    
+
         const produtoAtualizado = {
             nome: searchNome,
             categoria: searchCategoria,
@@ -149,7 +163,7 @@ const Adm = ({ theme, setTheme }) => {
             tamanho: searchTamanho,
             imagem: imagem ? URL.createObjectURL(imagem) : produtoEncontrado.imagem,
         };
-    
+
         try {
             const response = await fetch(`http://localhost:8080/${searchCategoria.toLowerCase()}/${produtoEncontrado.id}`, {
                 method: 'PUT',
@@ -158,23 +172,28 @@ const Adm = ({ theme, setTheme }) => {
                 },
                 body: JSON.stringify(produtoAtualizado),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Erro ao editar o produto.');
             }
-    
-            alert('Produto editado com sucesso!');
+
+            setModalTitle('Sucesso');
+            setModalMessage('Produto editado com sucesso!');
+            setModalOpen(true);
             limparCamposEdicao();
         } catch (error) {
             console.error('Erro ao editar o produto:', error);
-            alert('Erro ao editar o produto.');
+            setModalTitle('Erro');
+            setModalMessage('Erro ao editar o produto.');
+            setModalOpen(true);
         }
     };
 
     const handleDelete = async () => {
         if (!produtoEncontrado) {
-            alert('Nenhum produto selecionado para exclusão.');
-            return;
+            setModalTitle('Erro');
+            setModalMessage('Nenhum produto selecionado para exclusão.');
+            setModalOpen(true);
         }
 
         try {
@@ -186,12 +205,21 @@ const Adm = ({ theme, setTheme }) => {
                 throw new Error('Erro ao excluir o produto.');
             }
 
-            alert('Produto excluído com sucesso!');
+            setModalTitle('Sucesso');
+            setModalMessage('Produto excluído com sucesso!');
+            setModalOpen(true);
             limparCamposEdicao();
         } catch (error) {
             console.error('Erro ao excluir o produto:', error);
-            alert('Erro ao excluir o produto.');
+            setModalTitle('Erro');
+            setModalMessage('Erro ao excluir o produto.');
+            setModalOpen(true);
         }
+    };
+
+    // Função chamada quando o modal é fechado
+    const handleCloseModal = () => {
+        setModalOpen(false);
     };
 
     return (
@@ -329,6 +357,12 @@ const Adm = ({ theme, setTheme }) => {
                     </div>
                 </div>
             </div>
+            <Modal
+                isOpen={modalOpen}
+                onClose={handleCloseModal}
+                title={modalTitle}
+                message={modalMessage}
+            />
         </div>
     );
 };
