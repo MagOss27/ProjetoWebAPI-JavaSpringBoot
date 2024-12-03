@@ -12,6 +12,7 @@ import user_light from '../../assets/user_light.png';
 
 const Navbar = ({ theme, setTheme, isLoggedIn, isAdmin, handleLogout }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
     const toggle_mode = () => {
@@ -27,6 +28,25 @@ const Navbar = ({ theme, setTheme, isLoggedIn, isAdmin, handleLogout }) => {
         navigate('/'); // Redireciona para a página inicial
     };
 
+    const handleSearch = () => {
+        const lowerCaseQuery = searchQuery.toLowerCase(); // Entrada do usuário convertida para minúsculas
+    
+        // Lógica de redirecionamento baseada no texto digitado
+        if (lowerCaseQuery.includes('plantas'.toLowerCase())) {
+            navigate('/plantas');
+        } else if (lowerCaseQuery.includes('desidratadas'.toLowerCase())) {
+            navigate('/desidratadas');
+        } else if (lowerCaseQuery.includes('arranjos'.toLowerCase())) {
+            navigate('/arranjos');
+        } else if (lowerCaseQuery.includes('orquídeas'.toLowerCase())) {
+            navigate('/orquideas');
+        } else if (lowerCaseQuery.includes('adm'.toLowerCase()) && isAdmin) {
+            navigate('/adm');
+        } else {
+            alert('Nenhuma correspondência encontrada.');
+        }
+    };
+
     return (
         <div className='navbar'>
             <Link to='/'><img src={theme === 'dark' ? logo_light : logo_dark} alt='' className='logo' /></Link>
@@ -40,8 +60,18 @@ const Navbar = ({ theme, setTheme, isLoggedIn, isAdmin, handleLogout }) => {
             </ul>
 
             <div className='search-box'>
-                <input type="text" placeholder='Procurar' />
-                <img src={theme === 'dark' ? search_icon_dark : search_icon_light} alt='' />
+                <input
+                    type="text"
+                    placeholder='Procurar'
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <img
+                    src={theme === 'dark' ? search_icon_dark : search_icon_light}
+                    alt='Pesquisar'
+                    onClick={handleSearch}
+                    style={{ cursor: 'pointer' }}
+                />
             </div>
 
             <img onClick={toggle_mode} src={theme === 'dark' ? toggle_light : toggle_dark} alt='' className='toggle-icon' />
@@ -70,4 +100,3 @@ const Navbar = ({ theme, setTheme, isLoggedIn, isAdmin, handleLogout }) => {
 };
 
 export default Navbar;
-
