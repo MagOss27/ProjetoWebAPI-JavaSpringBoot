@@ -1,5 +1,5 @@
 import React from 'react';
-import './Infos.css';
+import '../Infos/Infos.css';
 import fretes_light from '../../assets/fretes-light.png';
 import fretes_dark from '../../assets/fretes-dark.png';
 import card_dark from '../../assets/card-dark.png';
